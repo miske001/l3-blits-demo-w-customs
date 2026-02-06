@@ -3,19 +3,21 @@ import Blits from '@lightningjs/blits'
 
 export default Blits.Component('HorizontalContainer', {
   template: `
-    <Element :x.transition="$x" ref="container">
+    <Element>
       <Text content="$title" color="#FFF" h="50" />
-      <Component
-        :for="(item, index) in $items"
-        is="$item.type"
-        :x="$rowX($index)"
-        :y="$title ? 50 : 0"
-        :ref="'list-item-'+$index"
-        :key="$index"
-        :items="$item.items ? $item.items : $item"
-        :alpha="$index === $focused ? 1 : 0.6"
-        autoScroll="true"
-      />
+      <Element :x.transition="$x" ref="container">
+        <Component
+          :for="(item, index) in $items"
+          is="$item.type"
+          :x="$rowX($index)"
+          :y="$title ? 50 : 0"
+          :ref="'list-item-'+$index"
+          :key="$index"
+          :items="$item.items ? $item.items : $item"
+          :alpha="$index === $focused ? 1 : 0.6"
+          autoScroll="true"
+        />
+      </Element>
     </Element>
   `,
   props: [
@@ -80,11 +82,12 @@ export default Blits.Component('HorizontalContainer', {
     scroll() {
       if (this.autoScroll) {
         // this.x = -this.rowOffset(this.focused)  //stara logika
+        //1820 = 1920 - xOffset set on VerticalContainer
         this.x =
           0 -
-          (this.items.length - 1770 / (this.items[0].width + this.gap) < 0
+          (this.items.length - 1820 / (this.items[0].width + this.gap) < 0
             ? 0
-            : Math.min(this.focused, this.items.length - 1770 / (this.items[0].width + this.gap)) *
+            : Math.min(this.focused, this.items.length - 1820 / (this.items[0].width + this.gap)) *
               (this.items[0].width + this.gap))
       }
     },

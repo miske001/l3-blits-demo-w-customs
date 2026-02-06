@@ -12,7 +12,7 @@ export default Blits.Component('VodPreview', {
   template: `
     <Element>
       <Text>VOD PREVIEW - Poziva VerticalContainer koji poziva HorizontalContainer</Text>
-      <VerticalContainer x="150" y="150" ref="verCont" items="$rails" autoScroll="true"></VerticalContainer>
+      <VerticalContainer x="100" y="150" ref="verCont" items="$rails" autoScroll="true"></VerticalContainer>
     </Element>
   `,
   state() {
