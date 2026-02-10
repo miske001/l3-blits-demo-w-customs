@@ -248,6 +248,11 @@ export default Blits.Component('Portal', {
           id: 'kastom/horlayproba',
           description: 'proba mt',
         },
+        {
+          title: 'Input & Keyboard',
+          id: 'kastom/input&keyboard',
+          description: 'Input and Keyboard components',
+        },
       ],
       benchmark: [
         {

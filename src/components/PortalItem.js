@@ -14,7 +14,17 @@ export default Blits.Component('PortalItem', {
       :effects="[{type: 'radius', props: {radius: 5}}]"
     >
       <Text x="30" y="30" :content="$number" size="84" :color="$fontColor" />
-      <Text x="30" y="140" :content="$title" size="42" font="raleway" :color="$fontColor" letterspacing="2" />
+      <Text
+        x="30"
+        y="140"
+        :content="$title"
+        size="42"
+        font="raleway"
+        :color="$fontColor"
+        letterspacing="2"
+        maxwidth="350"
+        maxlines="1"
+      />
       <Text x="30" y="200" :content="$description" maxwidth="300" size="28" :color="$fontColor" lineheight="32" />
       <FocusBorder width="372" height="322" :alpha="$hasFocus ? 1 : 0" />
     </Element>

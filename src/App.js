@@ -59,6 +59,7 @@ import Announcer from './pages/Announcer.js'
 import VodPreview from './pages/VodPreview.js'
 import HorLayout from './components/HorLayout.js'
 import Home from './pages/Home.ts'
+import Search from './pages/Search.js'
 
 const queryString = new URLSearchParams(window.location.search)
 const showSource = !!queryString.get('source')
@@ -145,6 +146,7 @@ export default Blits.Application({
     { path: '/kastom/verthor', component: VodPreview },
     { path: '/kastom/horlayproba', component: HorLayout },
     { path: '/kastom/sominavbar', component: Home },
+    { path: '/kastom/input&keyboard', component: Search },
     // Benchmarks and stress tests
     { path: '/benchmarks/exponential', component: Exponential },
 

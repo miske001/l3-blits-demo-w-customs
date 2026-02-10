@@ -56,6 +56,7 @@ Blits.Launch(App, 'app', {
   reactivityMode: 'Proxy',
   // adding source code key code: U, u
   defaultFont: 'lato',
+  holdTimeout: 1000,
   keymap: { ...keymapping(), ...{ 85: 'sourceCode' } },
   fonts: [
     {
