@@ -91,6 +91,17 @@ export default Blits.Component('VodPreview', {
           ],
         },
         {
+          title: 'Single Big Banner',
+          rowH: 500,
+          type: Item,
+          items: {
+            color: '#22c55e',
+            width: 1200,
+            height: 500,
+            type: Item,
+          },
+        },
+        {
           title: 'Rejl broj 2',
           rowH: 300,
           type: HorizontalContainer,

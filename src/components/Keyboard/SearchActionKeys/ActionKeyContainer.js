@@ -7,8 +7,8 @@ export default Blits.Component('ActionKeyContainer', {
   },
   template: `
     <Element w="$width" h="84">
-      <ActionKey value="spacebar" width="272" y="-9" ref="action-0" />
-      <ActionKey x="280" y="-9" value="backspace" width="245" ref="action-1" />
+      <ActionKey value="spacebar" width="253" y="-9" ref="action-0" :focused="$focused" />
+      <ActionKey x="270" y="-9" value="backspace" width="253" ref="action-1" :focused="$focused" />
     </Element>
   `,
   props: ['width'],

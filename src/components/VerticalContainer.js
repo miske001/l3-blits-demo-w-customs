@@ -11,7 +11,6 @@ export default Blits.Component('VerticalContainer', {
         :ref="'list-item-'+$index"
         :key="$index"
         :items="$item.items ? $item.items : $item"
-        :alpha="$index === $focused ? 1 : 0.6"
         title="$item.title"
         autoScroll="true"
       />
@@ -29,6 +28,14 @@ export default Blits.Component('VerticalContainer', {
     {
       key: 'gap',
       default: 100,
+    },
+    {
+      key: 'above',
+      default: null,
+    },
+    {
+      key: 'below',
+      default: null,
     },
   ],
   state() {
@@ -80,10 +87,18 @@ export default Blits.Component('VerticalContainer', {
   },
   input: {
     up() {
-      this.changeFocus(-1)
+      if (this.above && this.focused === 0) {
+        this.$emit('focusUpFromVert', this.above)
+      } else {
+        this.changeFocus(-1)
+      }
     },
     down() {
-      this.changeFocus(1)
+      if (this.below && this.focused === this.items.length - 1) {
+        this.$emit('focusDownFromVert', this.below)
+      } else {
+        this.changeFocus(1)
+      }
     },
     enter() {
       console.log('Selected item:', this.items[this.focused])

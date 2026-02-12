@@ -2,7 +2,13 @@ import Blits from '@lightningjs/blits'
 
 export default Blits.Component('SearchKeyboardKey', {
   template: `
-    <Element w="74" h="84" :color="$hasFocus ? '#FFF' : '#1b1c22'" :effects="[{type: 'radius', props: {radius: 10}}]">
+    <Element
+      w="74"
+      h="84"
+      :color="$hasFocus ? '#FFF' : '#1b1c22'"
+      :effects="[{type: 'radius', props: {radius: 10}}]"
+      :scale.transition="$hasFocus ? 1.1 : 1"
+    >
       <Text
         :content="$inputValue"
         size="40"

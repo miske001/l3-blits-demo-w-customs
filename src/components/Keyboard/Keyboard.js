@@ -129,6 +129,7 @@ export default Blits.Component('Keyboard', {
     },
     down() {
       if (this.focusIndex >= this.keys.length - this.perRow) {
+        this.$emit('focusDown')
         return
       } else {
         this.focusIndex = Math.min(this.focusIndex + this.perRow, this.keys.length - 1)
@@ -136,7 +137,7 @@ export default Blits.Component('Keyboard', {
     },
     enter(e) {
       const key = this.keys[this.focusIndex]
-      this.$emit('onKeyboardInput', {
+      this.$emit('onKeyInput', {
         key: this.layout === 'upper' ? key.toUpperCase() : key,
       })
     },
