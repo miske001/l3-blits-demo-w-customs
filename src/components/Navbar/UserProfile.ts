@@ -16,9 +16,18 @@ export default Blits.Component("Navbar", {
       :color="$hasFocus ? {left:'#ED51F0', right:'#9A33FF'} : '#2B2B2BFF'"
     >
       <Circle w="64" h="64" size="64" src="/assets/profile.png" mount="0.5" x="39" y="39" />
-      <Element w="32" h="32" mount="0.5" x="96" y="42" src="/assets/arrowUP.png"> </Element>
+      <Element
+        w="32"
+        h="32"
+        mount="0.5"
+        x="96"
+        y="42"
+        :src="$isProfileOpened ? '/assets/arrowUP.png' : '/assets/arrowDOWN.png'"
+      >
+      </Element>
     </Element>
   `,
+  props: ["isProfileOpened"],
   state() {
     return {
       focused: false,
