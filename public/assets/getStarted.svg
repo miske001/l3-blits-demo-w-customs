@@ -1,0 +1,19 @@
+<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(237,81,240,1)" />
+      <stop offset="100%" stop-color="rgba(154,51,255,1)" />
+    </linearGradient>
+  </defs>
+  <rect
+    width="234" 
+    height="74" 
+    x="3" 
+    y="3"
+    fill="transparent" 
+    stroke="url(#grad)" 
+    stroke-width="6" 
+    rx="37" 
+    ry="37" 
+  />
+</svg>
