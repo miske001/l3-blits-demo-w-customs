@@ -253,6 +253,11 @@ export default Blits.Component('Portal', {
           id: 'kastom/input&keyboard',
           description: 'Input and Keyboard components',
         },
+        {
+          title: 'Pin Keyboard',
+          id: 'kastom/pinkeyboard',
+          description: 'Pin keyboard handling',
+        },
       ],
       benchmark: [
         {

@@ -11,7 +11,18 @@ export default Blits.Component('VodPreview', {
   },
   template: `
     <Element>
-      <Text>VOD PREVIEW - Poziva VerticalContainer koji poziva HorizontalContainer</Text>
+      <Element ref="headerRef">
+        <Text content="VOD PREVIEW - Poziva VerticalContainer koji poziva HorizontalContainer" maxwidth="1800" x="100" />
+        <Text
+          content="Da bi radilo kako treba neophodno je
+      struktuirati datu u formatu kao na primeru ispod"
+          maxwidth="1800"
+          y="45"
+          alpha="0.3"
+          x="100"
+        />
+      </Element>
+    
       <VerticalContainer x="100" y="150" ref="verCont" items="$rails" autoScroll="true"></VerticalContainer>
     </Element>
   `,
