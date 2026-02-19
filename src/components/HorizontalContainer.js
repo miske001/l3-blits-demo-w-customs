@@ -16,6 +16,7 @@ export default Blits.Component('HorizontalContainer', {
           :items="$item.items ? $item.items : $item"
           :alpha="$index === $focused ? 1 : 0.6"
           autoScroll="true"
+          screenH="$screenH"
         />
       </Element>
     </Element>
@@ -29,6 +30,14 @@ export default Blits.Component('HorizontalContainer', {
     'items',
     'looping',
     'title',
+    {
+      key: 'screenH',
+      default: 1000,
+    },
+    {
+      key: 'screenW',
+      default: 1820,
+    },
     {
       key: 'gap',
       default: 50,
@@ -85,9 +94,12 @@ export default Blits.Component('HorizontalContainer', {
         //1820 = 1920 - xOffset set on VerticalContainer
         this.x =
           0 -
-          (this.items.length - 1820 / (this.items[0].width + this.gap) < 0
+          (this.items.length - this.screenW / (this.items[0].width + this.gap) < 0
             ? 0
-            : Math.min(this.focused, this.items.length - 1820 / (this.items[0].width + this.gap)) *
+            : Math.min(
+                this.focused,
+                this.items.length - this.screenW / (this.items[0].width + this.gap)
+              ) *
               (this.items[0].width + this.gap))
       }
     },

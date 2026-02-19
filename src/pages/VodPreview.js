@@ -23,7 +23,15 @@ export default Blits.Component('VodPreview', {
         />
       </Element>
     
-      <VerticalContainer x="100" y="150" ref="verCont" items="$rails" autoScroll="true"></VerticalContainer>
+      <VerticalContainer
+        x="100"
+        y="150"
+        ref="verCont"
+        items="$rails"
+        autoScroll="true"
+        screenH="1000"
+        screenW="1820"
+      ></VerticalContainer>
     </Element>
   `,
   state() {

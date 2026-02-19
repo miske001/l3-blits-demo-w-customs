@@ -25,7 +25,7 @@ export default Blits.Component('Search', {
           gap="10"
           ref="column"
           above="keyboard"
-          height="230"
+          screenH="230"
         />
       </Element>
       <!-- <SearchTerm x="100" y="850" value="mgt" /> -->
@@ -48,6 +48,21 @@ export default Blits.Component('Search', {
           rowH: 75,
           type: SearchTerm,
           items: { value: 'cbdd', width: 200, height: 75, type: SearchTerm },
+        },
+        {
+          rowH: 75,
+          type: SearchTerm,
+          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
+        },
+        {
+          rowH: 75,
+          type: SearchTerm,
+          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
+        },
+        {
+          rowH: 75,
+          type: SearchTerm,
+          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
         },
         {
           rowH: 75,

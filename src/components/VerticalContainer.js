@@ -13,6 +13,7 @@ export default Blits.Component('VerticalContainer', {
         :items="$item.items ? $item.items : $item"
         title="$item.title"
         autoScroll="true"
+        screenW="$screenW"
       />
     </Element>
   `,
@@ -25,6 +26,14 @@ export default Blits.Component('VerticalContainer', {
     'items',
     'looping',
     'type',
+    {
+      key: 'screenH',
+      default: 1000,
+    },
+    {
+      key: 'screenW',
+      default: 1820,
+    },
     {
       key: 'gap',
       default: 100,
@@ -69,7 +78,6 @@ export default Blits.Component('VerticalContainer', {
       this.focused = nextFocus
     },
     rowOffset(index) {
-      console.log('asdf items rowh: ', this.items)
       return index === 0
         ? 0
         : this.items
@@ -81,7 +89,16 @@ export default Blits.Component('VerticalContainer', {
     },
     scroll() {
       if (this.autoScroll) {
-        this.y = -this.rowOffset(this.focused)
+        // this.y = -this.rowOffset(this.focused)
+
+        const h = this.items[0].rowH ? this.items[0]?.rowH : this.items[0].height
+
+        this.y =
+          0 -
+          (this.items.length - this.screenH / (h + this.gap) < 0
+            ? 0
+            : Math.min(this.focused, this.items.length - this.screenH / (h + this.gap)) *
+              (h + this.gap))
       }
     },
   },
