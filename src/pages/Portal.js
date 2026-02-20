@@ -258,6 +258,11 @@ export default Blits.Component('Portal', {
           id: 'kastom/pinkeyboard',
           description: 'Pin keyboard handling',
         },
+        {
+          title: 'Grid',
+          id: 'kastom/grid',
+          description: 'Grid layout for poster/card items',
+        },
       ],
       benchmark: [
         {

@@ -61,6 +61,7 @@ import HorLayout from './components/HorLayout.js'
 import Home from './pages/Home.ts'
 import Search from './pages/Search.js'
 import PinKeyboard from './pages/PinKeyboard.ts'
+import GridPage from './pages/GridPage.js'
 
 const queryString = new URLSearchParams(window.location.search)
 const showSource = !!queryString.get('source')
@@ -149,6 +150,7 @@ export default Blits.Application({
     { path: '/kastom/sominavbar', component: Home },
     { path: '/kastom/input&keyboard', component: Search },
     { path: '/kastom/pinkeyboard', component: PinKeyboard },
+    { path: '/kastom/grid', component: GridPage },
     // Benchmarks and stress tests
     { path: '/benchmarks/exponential', component: Exponential },
 
