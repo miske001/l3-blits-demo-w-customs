@@ -17,6 +17,7 @@ export default Blits.Component('GridPage', {
         itemOffsetX="150"
         itemOffsetY="230"
         looping="false"
+        screenH="980"
         refocusParent="true"
       />
     </Element>
@@ -24,6 +25,16 @@ export default Blits.Component('GridPage', {
   state() {
     return {
       gridItems: [
+        { label: '0', color: '#BADA55', type: Item },
+        { label: '1', color: '#BADA55', type: Item },
+        { label: '2', color: '#BADA55', type: Item },
+        { label: '3', color: '#BADA55', type: Item },
+        { label: '4', color: '#BADA55', type: Item },
+        { label: '5', color: '#BADA55', type: Item },
+        { label: '6', color: '#BADA55', type: Item },
+        { label: '7', color: '#BADA55', type: Item },
+        { label: '8', color: '#BADA55', type: Item },
+        { label: '9', color: '#BADA55', type: Item },
         { label: '0', color: '#BADA55', type: Item },
         { label: '1', color: '#BADA55', type: Item },
         { label: '2', color: '#BADA55', type: Item },

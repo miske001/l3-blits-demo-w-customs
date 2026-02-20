@@ -3,7 +3,7 @@ import Blits from '@lightningjs/blits'
 
 export default Blits.Component('Grid', {
   template: `
-    <Element :x.transition="$x">
+    <Element :y.transition="$y">
       <Component
         :for="(item, index) in $items"
         is="$item.type"
@@ -23,12 +23,13 @@ export default Blits.Component('Grid', {
     'items',
     'columns',
     'looping',
+    'screenH',
     'refocusParent',
   ],
   state() {
     return {
       focused: 0,
-      x: 0,
+      y: 0,
       baseColumns: 4,
     }
   },
@@ -39,6 +40,12 @@ export default Blits.Component('Grid', {
     totalHeight() {
       return (this.itemHeight || 300) + (this.itemOffsetY || 0)
     },
+    columnsCount() {
+      return this.columns || this.baseColumns
+    },
+    currentRow() {
+      return Math.floor(this.focused / this.columnsCount)
+    },
   },
   watch: {
     hasFocus(isFocused) {
@@ -48,6 +55,7 @@ export default Blits.Component('Grid', {
       const focusItem = this.$select(`grid-item-${value}`)
       if (focusItem && focusItem.$focus) {
         focusItem.$focus()
+        this.scroll()
       }
     },
   },
@@ -110,6 +118,18 @@ export default Blits.Component('Grid', {
     },
     enter() {
       console.log('Selected item:', this.items[this.focused])
+    },
+  },
+  methods: {
+    scroll() {
+      const rowHeight = this.totalHeight
+      const visibleRows = Math.floor(this.screenH / rowHeight)
+
+      const maxRow = Math.ceil(this.items.length / this.columnsCount) - visibleRows
+
+      const targetRow = Math.min(this.currentRow, maxRow < 0 ? 0 : maxRow)
+
+      this.y = -(targetRow * rowHeight)
     },
   },
 })
