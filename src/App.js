@@ -27,7 +27,7 @@ import FocusHandling from './pages/FocusHandling'
 
 // Example & Test pages
 import Positioning from './pages/Positioning'
-import Player from './pages/Player'
+import PlayerOLD from './pages/PlayerOLD.js'
 import Colors from './pages/Colors'
 import Gradients from './pages/Gradients'
 import Transitions from './pages/Transitions'
@@ -62,6 +62,7 @@ import Home from './pages/Home.ts'
 import Search from './pages/Search.js'
 import PinKeyboard from './pages/PinKeyboard.ts'
 import GridPage from './pages/GridPage.js'
+import Player from './pages/Player.js'
 
 const queryString = new URLSearchParams(window.location.search)
 const showSource = !!queryString.get('source')
@@ -112,7 +113,7 @@ export default Blits.Application({
       component: MemoryGame,
       announce: "Let's play Memory",
     },
-    { path: '/demos/player', component: Player },
+    { path: '/demos/player', component: PlayerOLD },
     // Example and test routes
     { path: '/examples/positioning', component: Positioning },
     { path: '/examples/colors', component: Colors },
@@ -151,6 +152,7 @@ export default Blits.Application({
     { path: '/kastom/input&keyboard', component: Search },
     { path: '/kastom/pinkeyboard', component: PinKeyboard },
     { path: '/kastom/grid', component: GridPage },
+    { path: '/kastom/player', component: Player },
     // Benchmarks and stress tests
     { path: '/benchmarks/exponential', component: Exponential },
 
@@ -220,7 +222,7 @@ const getSourcePath = (routerPath) => {
     '/demos/sprites': 'src/pages/Sprites',
     '/demos/focushandling': 'src/pages/FocusHandling',
     '/demos/memory-game': 'src/pages/MemoryGame',
-    '/demos/player': 'src/pages/Player',
+    '/demos/player': 'src/pages/PlayerOLD',
     '/examples/positioning': 'src/pages/Positioning',
     '/examples/colors': 'src/pages/Colors',
     '/examples/gradients': 'src/pages/Gradients',

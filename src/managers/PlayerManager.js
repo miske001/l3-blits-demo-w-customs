@@ -15,12 +15,11 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-// @ts-ignore
+
 import shaka from 'shaka-player'
 
-// @ts-ignore
 let player
-// @ts-ignore
+
 let videoElement
 
 const state = {
@@ -51,7 +50,7 @@ const init = async (element) => {
     videoElement.autoplay = false
 
     // Listen for error events.
-    // @ts-ignore
+
     player.addEventListener('error', (err) => {
       console.error(err)
     })
@@ -67,45 +66,38 @@ const init = async (element) => {
  * @returns {Promise<void>}
  */
 const load = async (config) => {
-  // @ts-ignore
   if (!player || !videoElement) {
     throw 'Player not initialized yet'
   }
 
-  // @ts-ignore
   await player.load(config.streamUrl)
 }
 
 const play = () => {
-  // @ts-ignore
   videoElement.play().then(() => {
     state.playingState = true
   })
 }
 
 const pause = () => {
-  // @ts-ignore
   videoElement.pause()
   state.playingState = false
 }
 
 const destroy = async () => {
-  // @ts-ignore
   await player.destroy()
 
   player = null
-  // @ts-ignore
+
   videoElement.remove()
   videoElement = null
 }
 
 const getCurrentTime = () => {
-  // @ts-ignore
   return videoElement.currentTime
 }
 
 const getVideoDuration = () => {
-  // @ts-ignore
   return videoElement.duration
 }
 
@@ -141,18 +133,15 @@ const onSeeked = () => {
   }
 }
 
-4 // @ts-ignore
+4
 const seekBW = () => {
-  // @ts-ignore
   return (videoElement.currentTime = videoElement.currentTime - 5)
 }
 
 const getTimeFormat = () => {
-  // @ts-ignore
   let secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
-  // @ts-ignore
+
   return `${secondsToMmSs(videoElement.currentTime)} : ${secondsToMmSs(
-    // @ts-ignore
     Math.floor(videoElement.duration)
   )}`
 }
