@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Blits from '@lightningjs/blits'
 import PlayerManager from '../managers/PlayerManager.js'
 
@@ -68,6 +69,7 @@ export default Blits.Component('Player', {
       })
       const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
       const duration = PlayerManager.getVideoDuration()
+      console.log('asdf durat', duration)
       if (duration) {
         this.duration = secondsToMmSs(duration)
         this.progressChunkSize = Math.round((this.progressLength / duration) * 100) / 100
@@ -85,7 +87,11 @@ export default Blits.Component('Player', {
   },
   input: {
     enter() {
-      this.play()
+      if (this.controlsVisibility === 0) {
+        this.showNhidePlayerUIDebounced()
+      } else {
+        this.play()
+      }
     },
     up() {
       this.showControls(1)
@@ -101,13 +107,18 @@ export default Blits.Component('Player', {
       console.log('asdf upad u left')
       PlayerManager.seekBW()
     },
+    /* back(e) {
+      this.parent.$focus(e)
+      console.log('asdf back upad')
+    }, */
   },
   methods: {
     play() {
-      console.log('asdf upaaaaaad')
-      this.showControls(1)
-      this.hideTimeout = this.$setTimeout(() => this.showControls(0), 3000)
-      if (PlayerManager.state.playingState == true) {
+      // this.showControls(1)
+      // this.hideTimeout = this.$setTimeout(() => this.showControls(0), 5000)
+      this.showNhidePlayerUIDebounced()
+      if (PlayerManager.state.playingState === true) {
+        console.log('asdf upad playstate tru')
         PlayerManager.pause()
         this.playing = false
       } else {
@@ -119,6 +130,15 @@ export default Blits.Component('Player', {
     showControls(v) {
       this.$clearTimeout(this.hideTimeout)
       this.controlsVisibility = v
+    },
+    showNhidePlayerUIDebounced() {
+      this.controlsVisibility = 1
+
+      if (this.hideTimeout) this.$clearTimeout(this.hideTimeout)
+
+      this.hideTimeout = this.$setTimeout(() => {
+        this.controlsVisibility = 0
+      }, 5000)
     },
   },
 })

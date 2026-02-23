@@ -16,14 +16,9 @@ export default Blits.Component("Navbar", {
       :color="$hasFocus ? {left:'#ED51F0', right:'#9A33FF'} : '#2B2B2BFF'"
     >
       <Circle w="64" h="64" size="64" src="/assets/profile.png" mount="0.5" x="39" y="39" />
-      <Element
-        w="32"
-        h="32"
-        mount="0.5"
-        x="96"
-        y="42"
-        :src="$isProfileOpened ? '/assets/arrowUP.png' : '/assets/arrowDOWN.png'"
-      >
+      <Element w="32" h="32" x="96" y="42" mount="0.5">
+        <Element w="32" h="32" src="/assets/arrowUP.png" :alpha.transition="$isProfileOpened ? 1 : 0" />
+        <Element w="32" h="32" src="/assets/arrowDOWN.png" :alpha.transition="$isProfileOpened ? 0 : 1" />
       </Element>
     </Element>
   `,

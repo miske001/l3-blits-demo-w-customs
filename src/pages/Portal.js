@@ -11,23 +11,31 @@ export default Blits.Component('Portal', {
   },
   template: `
     <Element w="1920" h="1080" color="{top: '#44037a', bottom: '#240244'}">
-      <PortalRow mount="{y: 0.5}" h="500" :y.transition="-$rowFocused * 420 + 550" title="Demos" items="$demo" ref="row0" />
+      <PortalRow
+        mount="{y: 0.5}"
+        h="500"
+        :y.transition="-$rowFocused * 420 + 550"
+        title="Kastom komponente mladih nada iz shindirija"
+        items="$kastomkomponente"
+        ref="row0"
+      />
       <PortalRow
         mount="{y: 0.5}"
         h="500"
         :y.transition="-$rowFocused * 420 + 1100"
-        title="Examples and tests"
-        items="$example"
+        title="Demos"
+        items="$demo"
         ref="row1"
       />
       <PortalRow
         mount="{y: 0.5}"
         h="500"
         :y.transition="-$rowFocused * 420 + 1650"
-        title="Kastom komponente mladih nada iz shindirija"
-        items="$kastomkomponente"
+        title="Examples and tests"
+        items="$example"
         ref="row2"
       />
+    
       <PortalRow
         mount="{y: 0.5}"
         h="500"
@@ -237,7 +245,11 @@ export default Blits.Component('Portal', {
           id: 'kastom/verthor',
           description: 'Vertical & Horizontal container',
         },
-
+        {
+          title: 'Player',
+          id: 'kastom/player',
+          description: 'Player page & component with UI',
+        },
         {
           title: 'SomiNavbar',
           id: 'kastom/sominavbar',
@@ -262,11 +274,6 @@ export default Blits.Component('Portal', {
           title: 'Grid',
           id: 'kastom/grid',
           description: 'Grid layout for poster/card items',
-        },
-        {
-          title: 'Player',
-          id: 'kastom/player',
-          description: 'Player page & component with UI',
         },
       ],
       benchmark: [
