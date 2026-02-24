@@ -18,8 +18,8 @@ export default Blits.Component('PlayerChBtn', {
   props: ['isProfileOpened', 'items'],
 
   input: {
-    enter() {
-      console.log('kanal')
-    },
+    // enter() {
+    //   console.log('kanal')
+    // },
   },
 })

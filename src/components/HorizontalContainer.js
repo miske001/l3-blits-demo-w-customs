@@ -56,7 +56,7 @@ export default Blits.Component('HorizontalContainer', {
   },
   hooks: {
     ready() {
-      console.log('asdf props: ', this.props)
+      // console.log('asdf props: ', this.props)
     },
   },
   watch: {
@@ -65,7 +65,6 @@ export default Blits.Component('HorizontalContainer', {
     },
     focused(value) {
       const focusItem = this.$select(`list-item-${value}`)
-      console.log('asdf focusItem: ', this.items[0].width)
       if (focusItem && focusItem.$focus) {
         focusItem.$focus()
         // if(this.items)
@@ -86,7 +85,6 @@ export default Blits.Component('HorizontalContainer', {
         : this.items.slice(0, index).reduce((acc, curr) => {
             //check if this item has more childs inside - first value would be used horizontal - vertical, other in vertical - horiz
             const w = curr?.items ? curr?.items[0].width : curr.width
-            console.log('asdf items cur: ', curr)
             return acc + w + this.gap
           }, 0)
     },

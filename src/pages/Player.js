@@ -135,22 +135,24 @@ export default Blits.Component('Player', {
       })
       const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
       const duration = PlayerManager.getVideoDuration()
-      console.log('asdf durat', duration)
 
       if (duration) {
         this.duration = secondsToMmSs(duration)
-        this.progressChunkSize = Math.round((this.progressLength / duration) * 100) / 100
+        this.progressChunkSize = Math.floor((this.progressLength / duration) * 100) / 100
       }
 
       this.$setInterval(() => {
-        if (this.isScrubbing) return
+        if (this.isScrubbing || !this.playing) return
 
         const currentTime = PlayerManager.getCurrentTime()
         this.currentTime = secondsToMmSs(currentTime)
-        this.progress = Math.round(currentTime * this.progressChunkSize)
+        this.progress = Math.floor(currentTime * this.progressChunkSize)
+        if (Math.floor(PlayerManager.getCurrentTime()) === Math.floor(duration)) {
+          this.$router.back()
+        }
       }, 1000)
 
-      this.play()
+      this.togglePlay()
     },
     async destroy() {
       await PlayerManager.destroy()
@@ -170,8 +172,8 @@ export default Blits.Component('Player', {
       console.log('asdf upad enter')
       if (this.controlsVisibility === 0) {
         this.showNhidePlayerUIDebounced()
-      } else {
-        this.play()
+      } else if (this.focused === 0) {
+        this.togglePlay()
       }
     },
     up() {
@@ -184,14 +186,6 @@ export default Blits.Component('Player', {
       this.showNhidePlayerUIDebounced()
       this.focused = 1
     },
-    /* back() {
-      console.log('asdf back')
-      this.$router.back()
-    },
-    any() {
-      console.log('asd upapapapapapd')
-      this.showNhidePlayerUIDebounced()
-    }, */
     left() {
       this.showNhidePlayerUIDebounced()
     },
@@ -200,12 +194,11 @@ export default Blits.Component('Player', {
     },
   },
   methods: {
-    play() {
+    togglePlay() {
       // this.showControls(1)
       // this.hideTimeout = this.$setTimeout(() => this.showControls(0), 5000)
       this.showNhidePlayerUIDebounced()
-      if (PlayerManager.state.playingState === true) {
-        console.log('asdf upad playstate tru')
+      if (this.playing) {
         PlayerManager.pause()
         this.playing = false
       } else {
@@ -258,7 +251,7 @@ export default Blits.Component('Player', {
       const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
 
       this.currentTime = secondsToMmSs(this.scrubPreviewTime)
-      this.progress = Math.round(this.scrubPreviewTime * this.progressChunkSize)
+      this.progress = Math.floor(this.scrubPreviewTime * this.progressChunkSize)
 
       // Debounce real seek
       if (this.scrubTimeout) this.$clearTimeout(this.scrubTimeout)
