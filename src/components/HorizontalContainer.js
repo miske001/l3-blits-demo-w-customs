@@ -14,7 +14,7 @@ export default Blits.Component('HorizontalContainer', {
           :ref="'list-item-'+$index"
           :key="$index"
           :items="$item.items ? $item.items : $item"
-          :alpha="$index === $focused ? 1 : 0.6"
+          :alpha="$rowAlpha ? ($index === $focused ? 1 : 0.6) : undefined"
           autoScroll="true"
           screenH="$screenH"
         />
@@ -30,6 +30,7 @@ export default Blits.Component('HorizontalContainer', {
     'items',
     'looping',
     'title',
+    'rowAlpha',
     {
       key: 'screenH',
       default: 1000,
@@ -41,6 +42,10 @@ export default Blits.Component('HorizontalContainer', {
     {
       key: 'gap',
       default: 50,
+    },
+    {
+      key: 'allowBubbling',
+      default: false,
     },
   ],
   state() {
@@ -105,13 +110,16 @@ export default Blits.Component('HorizontalContainer', {
     },
   },
   input: {
-    left() {
+    left(e) {
       this.changeFocus(-1)
+      this.allowBubbling && this.parent.$input(e)
     },
-    right() {
+    right(e) {
       this.changeFocus(1)
+      this.allowBubbling && this.parent.$input(e)
     },
-    enter() {
+    enter(e) {
+      this.allowBubbling && this.parent.$input(e)
       console.log('Selected item:', this.items[this.focused])
     },
   },

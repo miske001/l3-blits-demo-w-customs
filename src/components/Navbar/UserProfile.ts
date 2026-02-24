@@ -1,8 +1,6 @@
 import Blits from '@lightningjs/blits'
 
-
-
-export default Blits.Component("Navbar", {
+export default Blits.Component("UserProfile", {
   components: {},
   template: `
     <Element
@@ -23,20 +21,6 @@ export default Blits.Component("Navbar", {
     </Element>
   `,
   props: ["isProfileOpened"],
-  state() {
-    return {
-      focused: false,
-    };
-  },
-
-  hooks: {
-    focus() {
-      this.hasFocus = true;
-    },
-    unfocus() {
-      this.hasFocus = false;
-    },
-  },
 
   input: {
     enter() {

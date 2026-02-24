@@ -1,66 +1,132 @@
 // @ts-nocheck
 import Blits from '@lightningjs/blits'
 import PlayerManager from '../managers/PlayerManager.js'
+import ProgressBar from '../components/Player/ProgressBar.js'
+import HorizontalContainer from '../components/HorizontalContainer.js'
+import PlayerBtn from '../components/Player/PlayerBtn.js'
+import PlayerChBtn from '../components/Player/PlayerChBtn.js'
 
 export default Blits.Component('Player', {
+  components: {
+    ProgressBar,
+    HorizontalContainer,
+    PlayerBtn,
+    PlayerChBtn,
+  },
   template: `
     <Element>
       <Element
-        y="1080"
+        y="1090"
         mount="{y:1}"
         w="1920"
-        h="150"
-        :color="{top: 'transparent', bottom: '#444'}"
+        h="250"
+        :color="{top: 'transparent', bottom: '#000'}"
         :alpha.transition="$controlsVisibility"
       >
-        <Element x="60" y="50">
-          <Element w="60" h="60" color="#0087CEEB" :effects="[{type: 'radius', props: {radius:16}}]">
-            <Element y="14" x="14" w="32" h="32" :src="$playing ? 'assets/player/pause.png' : 'assets/player/play.png'" />
-          </Element>
-          <Element
-            y="22"
-            x="100"
-            w="$progressLength"
-            h="16"
-            color="#ffffff80"
-            :effects="[{type: 'radius', props: {radius:8}}]"
-          >
+        <Element x="60" y="20">
+          <Element y="-10" w="80" h="80" color="#2B2B2B" :effects="[{type: 'radius', props: {radius:99}}]">
             <Element
-              h="16"
-              :w.transition="{value: $progress, d: 100, f: 'ease-in-out'}"
-              :effects="[{type: 'radius', props: {radius:8}}]"
-              color="#0087CEEB"
+              mount="0.5"
+              y="40"
+              x="40"
+              w="32"
+              h="32"
+              :src="$playing ? 'assets/player/pause.png' : 'assets/player/play.png'"
             />
-            <Circle size="28" color="#fff" y="-6" :x.transition="{value: $progress - 8, d: 100, f: 'ease-in-out'}" />
           </Element>
-          <Element x="1660" y="16">
-            <Text :content="$currentTime" size="25" />
-            <Text x="70" size="25" content="/" />
-            <Text x="85" size="25" :content="$duration" />
-          </Element>
+          <Text :content="$currentTime" size="25" x="115" y="16" />
+          <ProgressBar ref="progressBar" :progress="$progress" :progressLength="$progressLength" />
+          <Text x="1675" y="16" size="25" :content="$duration" />
         </Element>
+        <HorizontalContainer
+          ref="btnsContainer"
+          x="60"
+          y="100"
+          items="$plBtns"
+          allowBubbling="true"
+          autoScroll="false"
+          gap="25"
+        />
       </Element>
     </Element>
   `,
   state() {
     return {
+      focused: 0,
       controlsVisibility: 0,
-      progressLength: 1520,
+      progressLength: 1460,
       progress: 0,
       currentTime: '00:00',
       duration: '00:00',
       playing: false,
       hideTimeout: null,
+      isScrubbing: false,
+      scrubPreviewTime: 0,
+      scrubTimeout: null,
+      plBtns: [
+        {
+          type: PlayerChBtn,
+          width: 130,
+          height: 80,
+          src: 'assets/fenerLogo.png',
+        },
+        {
+          type: PlayerBtn,
+          label: 'Start Over',
+          width: 80,
+          height: 80,
+          src: 'assets/replay.png',
+        },
+        {
+          type: PlayerBtn,
+          label: 'Play Next',
+          width: 80,
+          height: 80,
+          src: 'assets/playNext.png',
+        },
+        {
+          type: PlayerBtn,
+          label: 'Moments',
+          width: 80,
+          height: 80,
+          src: 'assets/bookmark.png',
+        },
+        {
+          type: PlayerBtn,
+          label: 'Quality',
+          width: 80,
+          height: 80,
+          src: 'assets/hdIcon.png',
+        },
+        {
+          type: PlayerBtn,
+          label: 'Channel List',
+          width: 80,
+          height: 80,
+          src: 'assets/chch.png',
+        },
+        {
+          type: PlayerBtn,
+          label: 'More Info',
+          width: 80,
+          height: 80,
+          src: 'assets/dots.png',
+        },
+      ],
     }
   },
   hooks: {
     focus() {
       this.$emit('clearBackground')
+      this.$trigger('focused')
     },
     unfocus() {
       this.$emit('changeBackground')
     },
     async init() {
+      this.$listen('seekFromProgBar', (val) => {
+        this.seek(val)
+      })
       await PlayerManager.init()
     },
     async ready() {
@@ -70,23 +136,38 @@ export default Blits.Component('Player', {
       const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
       const duration = PlayerManager.getVideoDuration()
       console.log('asdf durat', duration)
+
       if (duration) {
         this.duration = secondsToMmSs(duration)
         this.progressChunkSize = Math.round((this.progressLength / duration) * 100) / 100
       }
+
       this.$setInterval(() => {
+        if (this.isScrubbing) return
+
         const currentTime = PlayerManager.getCurrentTime()
         this.currentTime = secondsToMmSs(currentTime)
         this.progress = Math.round(currentTime * this.progressChunkSize)
       }, 1000)
+
       this.play()
     },
     async destroy() {
       await PlayerManager.destroy()
     },
   },
+  watch: {
+    focused(v) {
+      if (v === 0) {
+        this.$select('progressBar')?.$focus()
+      } else if (v === 1) {
+        this.$select('btnsContainer')?.$focus()
+      }
+    },
+  },
   input: {
     enter() {
+      console.log('asdf upad enter')
       if (this.controlsVisibility === 0) {
         this.showNhidePlayerUIDebounced()
       } else {
@@ -94,23 +175,29 @@ export default Blits.Component('Player', {
       }
     },
     up() {
-      this.showControls(1)
+      // this.showControls(1)
+      this.showNhidePlayerUIDebounced()
+      this.focused = 0
     },
     down() {
-      this.showControls(0)
+      // this.showControls(0)
+      this.showNhidePlayerUIDebounced()
+      this.focused = 1
+    },
+    /* back() {
+      console.log('asdf back')
+      this.$router.back()
+    },
+    any() {
+      console.log('asd upapapapapapd')
+      this.showNhidePlayerUIDebounced()
+    }, */
+    left() {
+      this.showNhidePlayerUIDebounced()
     },
     right() {
-      console.log('asdf upad u right')
-      PlayerManager.seekFW()
+      this.showNhidePlayerUIDebounced()
     },
-    left() {
-      console.log('asdf upad u left')
-      PlayerManager.seekBW()
-    },
-    /* back(e) {
-      this.parent.$focus(e)
-      console.log('asdf back upad')
-    }, */
   },
   methods: {
     play() {
@@ -139,6 +226,47 @@ export default Blits.Component('Player', {
       this.hideTimeout = this.$setTimeout(() => {
         this.controlsVisibility = 0
       }, 5000)
+    },
+    /* seek(v) {
+      if (v === 'left') {
+        this.showNhidePlayerUIDebounced()
+        PlayerManager.seekBW()
+      } else {
+        this.showNhidePlayerUIDebounced()
+        PlayerManager.seekFW()
+      }
+    }, */
+    seek(direction) {
+      this.showNhidePlayerUIDebounced()
+
+      const step = 10
+
+      // Start scrubbing mode
+      if (!this.isScrubbing) {
+        this.isScrubbing = true
+        this.scrubPreviewTime = PlayerManager.getCurrentTime()
+      }
+
+      if (direction === 'left') {
+        this.scrubPreviewTime = Math.max(0, this.scrubPreviewTime - step)
+      } else {
+        const duration = PlayerManager.getVideoDuration()
+        this.scrubPreviewTime = Math.min(duration, this.scrubPreviewTime + step)
+      }
+
+      // Update UI immediately
+      const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
+
+      this.currentTime = secondsToMmSs(this.scrubPreviewTime)
+      this.progress = Math.round(this.scrubPreviewTime * this.progressChunkSize)
+
+      // Debounce real seek
+      if (this.scrubTimeout) this.$clearTimeout(this.scrubTimeout)
+
+      this.scrubTimeout = this.$setTimeout(() => {
+        PlayerManager.seekTo(this.scrubPreviewTime)
+        this.isScrubbing = false
+      }, 600)
     },
   },
 })

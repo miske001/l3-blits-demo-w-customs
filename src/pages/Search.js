@@ -42,7 +42,9 @@ export default Blits.Component('Search', {
         {
           rowH: 75,
           type: SearchTerm,
-          items: { value: 'abc', width: 200, height: 75, type: SearchTerm },
+          value: 'abc',
+          width: 200,
+          height: 75,
         },
         {
           rowH: 75,

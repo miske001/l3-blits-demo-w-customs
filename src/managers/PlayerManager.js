@@ -133,9 +133,12 @@ const onSeeked = () => {
   }
 }
 
-4
 const seekBW = () => {
   return (videoElement.currentTime = videoElement.currentTime - 5)
+}
+
+const seekTo = (value) => {
+  videoElement.currentTime = value
 }
 
 const getTimeFormat = () => {
@@ -158,4 +161,5 @@ export default {
   getTimeFormat,
   state,
   destroy,
+  seekTo,
 }
