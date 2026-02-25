@@ -6,12 +6,12 @@ export default Blits.Component('SearchTerm', {
       w="$items.width"
       h="$items.height"
       :color="$hasFocus ? '#FFF' : 'transparent'"
-      :effects="[{type: 'radius', props: {radius: 10}}]"
+      :effects="[{type: 'radius', props: {radius: $items.radius}}]"
       x="-10"
     >
       <Text
         :content="$items.value"
-        size="40"
+        size="$items.textSize || 40"
         :color="$hasFocus ? '#0D0E12' : '#FFF'"
         mount="{x: 0, y: 0.5}"
         x="10"

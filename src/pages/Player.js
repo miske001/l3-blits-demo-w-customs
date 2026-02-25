@@ -5,6 +5,7 @@ import ProgressBar from '../components/Player/ProgressBar.js'
 import HorizontalContainer from '../components/HorizontalContainer.js'
 import PlayerBtn from '../components/Player/PlayerBtn.js'
 import PlayerChBtn from '../components/Player/PlayerChBtn.js'
+import PlayerContainer from '../components/Player/PlayerContainer.js'
 
 export default Blits.Component('Player', {
   components: {
@@ -12,6 +13,7 @@ export default Blits.Component('Player', {
     HorizontalContainer,
     PlayerBtn,
     PlayerChBtn,
+    PlayerContainer,
   },
   template: `
     <Element>
@@ -48,11 +50,21 @@ export default Blits.Component('Player', {
           gap="25"
         />
       </Element>
+      <PlayerContainer
+        ref="playerContainer"
+        :show="$showContainer ? 1 : 0"
+        y="90"
+        x="1350"
+        label="Quality"
+        width="510"
+        height="665"
+      />
     </Element>
   `,
   state() {
     return {
       focused: 0,
+      showContainer: false,
       controlsVisibility: 0,
       progressLength: 1460,
       progress: 0,
@@ -98,6 +110,7 @@ export default Blits.Component('Player', {
           width: 80,
           height: 80,
           src: 'assets/hdIcon.png',
+          action: 'toggleQuality',
         },
         {
           type: PlayerBtn,
@@ -129,6 +142,10 @@ export default Blits.Component('Player', {
         this.seek(val)
       })
       await PlayerManager.init()
+
+      this.$listen('toggleQuality', () => {
+        this.toggleContainer()
+      })
     },
     async ready() {
       await PlayerManager.load({
@@ -217,20 +234,14 @@ export default Blits.Component('Player', {
 
       if (this.hideTimeout) this.$clearTimeout(this.hideTimeout)
 
+      if (this.showContainer) return
+
       this.hideTimeout = this.$setTimeout(() => {
         this.controlsVisibility = 0
         this.focused = 0
       }, 5000)
     },
-    /* seek(v) {
-      if (v === 'left') {
-        this.showNhidePlayerUIDebounced()
-        PlayerManager.seekBW()
-      } else {
-        this.showNhidePlayerUIDebounced()
-        PlayerManager.seekFW()
-      }
-    }, */
+
     seek(direction) {
       this.showNhidePlayerUIDebounced()
 
@@ -265,6 +276,19 @@ export default Blits.Component('Player', {
     },
     startOver() {
       PlayerManager.seekTo(0)
+    },
+    toggleContainer() {
+      this.showContainer = !this.showContainer
+      if (this.hideTimeout && this.showContainer) {
+        this.$clearTimeout(this.hideTimeout)
+      }
+
+      if (this.showContainer) {
+        this.$select('playerContainer')?.$focus()
+      } else if (!this.showContainer) {
+        this.$trigger('focused')
+        this.showNhidePlayerUIDebounced()
+      }
     },
   },
 })
