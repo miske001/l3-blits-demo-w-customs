@@ -28,20 +28,10 @@ export default Blits.Component('PlayerBtn', {
         y="90"
       />
     </Element>`,
-  state() {
-    return { src: '', content: '', x: 0 }
-  },
-  hooks: {
-    focus() {
-      this.$trigger('focused')
-    },
-  },
-  methods: {
-    focused() {
-      const focusItem = this.$select('button')
-      if (focusItem && focusItem.$focus) {
-        focusItem.$focus()
-      }
+  input: {
+    enter(e) {
+      this.parent.$input(e)
+      this.items.callback()
     },
   },
 })

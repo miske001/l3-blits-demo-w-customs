@@ -76,6 +76,7 @@ export default Blits.Component('Player', {
           width: 80,
           height: 80,
           src: 'assets/replay.png',
+          callback: this.startOver,
         },
         {
           type: PlayerBtn,
@@ -218,6 +219,7 @@ export default Blits.Component('Player', {
 
       this.hideTimeout = this.$setTimeout(() => {
         this.controlsVisibility = 0
+        this.focused = 0
       }, 5000)
     },
     /* seek(v) {
@@ -260,6 +262,9 @@ export default Blits.Component('Player', {
         PlayerManager.seekTo(this.scrubPreviewTime)
         this.isScrubbing = false
       }, 600)
+    },
+    startOver() {
+      PlayerManager.seekTo(0)
     },
   },
 })
