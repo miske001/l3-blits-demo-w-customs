@@ -57,7 +57,7 @@ Blits.Launch(App, 'app', {
   // adding source code key code: U, u
   defaultFont: 'lato',
   holdTimeout: 1000,
-  keymap: { ...keymapping(), ...{ 85: 'sourceCode' } },
+  keymap: { ...keymapping() },
   fonts: [
     {
       family: 'lato',

@@ -15,7 +15,12 @@ const keymapping = {
   },
   webos: {
     test() {
-      return navigator.userAgent.indexOf('WebOS') > -1 || queryParam('keymapping') === 'webos'
+      const ua = navigator.userAgent
+      return (
+        ua.indexOf('WebOS') > -1 ||
+        ua.indexOf('Web0S') > -1 || // <-- add this
+        queryParam('keymapping') === 'webos'
+      )
     },
     mapping: {
       19: 'pause',
