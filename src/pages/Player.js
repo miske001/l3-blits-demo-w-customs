@@ -6,6 +6,8 @@ import HorizontalContainer from '../components/HorizontalContainer.js'
 import PlayerBtn from '../components/Player/PlayerBtn.js'
 import PlayerChBtn from '../components/Player/PlayerChBtn.js'
 import PlayerContainer from '../components/Player/PlayerContainer.js'
+import SearchTerm from '../components/Keyboard/SearchTerm.js'
+import MomentItem from '../components/Player/MomentItem.js'
 
 export default Blits.Component('Player', {
   components: {
@@ -14,6 +16,8 @@ export default Blits.Component('Player', {
     PlayerBtn,
     PlayerChBtn,
     PlayerContainer,
+    SearchTerm,
+    MomentItem,
   },
   template: `
     <Element>
@@ -51,13 +55,28 @@ export default Blits.Component('Player', {
         />
       </Element>
       <PlayerContainer
-        ref="playerContainer"
-        :show="$showContainer ? 1 : 0"
+        ref="playerContainerMom"
+        :show="$showContainer && $showedContainerIndex === 0 ? 1 : 0"
+        y="90"
+        x="1260"
+        label="Moments"
+        width="600"
+        height="750"
+        items="$moments"
+        vertContX="30"
+        autoScroll="true"
+      />
+      <PlayerContainer
+        ref="playerContainerQual"
+        :show="$showContainer && $showedContainerIndex === 1 ? 1 : 0"
         y="90"
         x="1350"
         label="Quality"
         width="510"
         height="665"
+        items="$videoQualArr"
+        vertContX="50"
+        autoScroll="false"
       />
     </Element>
   `,
@@ -65,6 +84,7 @@ export default Blits.Component('Player', {
     return {
       focused: 0,
       showContainer: false,
+      showedContainerIndex: 0,
       controlsVisibility: 0,
       progressLength: 1460,
       progress: 0,
@@ -103,6 +123,8 @@ export default Blits.Component('Player', {
           width: 80,
           height: 80,
           src: 'assets/bookmark.png',
+          action: 'togglePlayerContainer',
+          actionVal: 'moments',
         },
         {
           type: PlayerBtn,
@@ -110,7 +132,8 @@ export default Blits.Component('Player', {
           width: 80,
           height: 80,
           src: 'assets/hdIcon.png',
-          action: 'toggleQuality',
+          action: 'togglePlayerContainer',
+          actionVal: 'quality',
         },
         {
           type: PlayerBtn,
@@ -125,6 +148,127 @@ export default Blits.Component('Player', {
           width: 80,
           height: 80,
           src: 'assets/dots.png',
+        },
+      ],
+      videoQualArr: [
+        {
+          type: SearchTerm,
+          rowH: 72,
+          value: '1080p HD',
+          width: 420,
+          height: 72,
+          textSize: 27,
+          radius: 35,
+        },
+        {
+          type: SearchTerm,
+          rowH: 72,
+          value: '720p',
+          width: 420,
+          height: 72,
+          textSize: 27,
+          radius: 35,
+        },
+        {
+          type: SearchTerm,
+          rowH: 72,
+          value: '480p',
+          width: 420,
+          height: 72,
+          textSize: 27,
+          radius: 35,
+        },
+        {
+          type: SearchTerm,
+          rowH: 72,
+          value: '360p',
+          width: 420,
+          height: 72,
+          textSize: 27,
+          radius: 35,
+        },
+        {
+          type: SearchTerm,
+          rowH: 72,
+          value: '240p',
+          width: 420,
+          height: 72,
+          textSize: 27,
+          radius: 35,
+        },
+        {
+          type: SearchTerm,
+          rowH: 72,
+          value: '144p',
+          width: 420,
+          height: 72,
+          textSize: 27,
+          radius: 35,
+        },
+      ],
+      moments: [
+        {
+          type: MomentItem,
+          label: 'Moment 1',
+          text: 'Trabzonpor Line-up',
+          time: '01:30',
+          width: 530,
+          height: 180,
+          textSize: 27,
+          radius: 20,
+          imgSrc: '',
+        },
+        {
+          type: MomentItem,
+          label: 'Moment 2',
+          text: 'Goal to Fenerbahce - Arda Guler',
+          time: '01:30',
+          width: 530,
+          height: 180,
+          textSize: 27,
+          radius: 20,
+          imgSrc: '',
+        },
+        {
+          type: MomentItem,
+          label: 'Moment 3',
+          text: 'Tears stream down, crazy festival',
+          time: '01:30',
+          width: 530,
+          height: 180,
+          textSize: 27,
+          radius: 20,
+          imgSrc: '',
+        },
+        {
+          type: MomentItem,
+          label: 'Moment 4',
+          text: 'test text work',
+          width: 530,
+          height: 180,
+          textSize: 27,
+          radius: 20,
+          imgSrc: '',
+        },
+        {
+          type: MomentItem,
+          label: 'Moment 5',
+          text: 'test text work',
+          width: 530,
+          height: 180,
+          textSize: 27,
+          radius: 20,
+          imgSrc: '',
+        },
+        {
+          type: MomentItem,
+          label: 'Moment 6',
+          text: 'test text work',
+          width: 530,
+          height: 180,
+          textSize: 27,
+          radius: 20,
+          imgSrc: '',
         },
       ],
     }
@@ -143,8 +287,8 @@ export default Blits.Component('Player', {
       })
       await PlayerManager.init()
 
-      this.$listen('toggleQuality', () => {
-        this.toggleContainer()
+      this.$listen('togglePlayerContainer', (container) => {
+        this.toggleContainer(container)
       })
     },
     async ready() {
@@ -166,6 +310,7 @@ export default Blits.Component('Player', {
         this.currentTime = secondsToMmSs(currentTime)
         this.progress = Math.floor(currentTime * this.progressChunkSize)
         if (Math.floor(PlayerManager.getCurrentTime()) === Math.floor(duration)) {
+          console.log('asdf upad u exit')
           this.$router.back()
         }
       }, 1000)
@@ -277,14 +422,25 @@ export default Blits.Component('Player', {
     startOver() {
       PlayerManager.seekTo(0)
     },
-    toggleContainer() {
+    toggleContainer(container) {
+      console.log('asdf container: ', container)
+      if (container === 'moments') {
+        this.showedContainerIndex = 0
+      } else if (container === 'quality') {
+        this.showedContainerIndex = 1
+      }
+
+      console.log('asdf containerDATA: ', this.selectedContainerData)
+
       this.showContainer = !this.showContainer
       if (this.hideTimeout && this.showContainer) {
         this.$clearTimeout(this.hideTimeout)
       }
 
-      if (this.showContainer) {
-        this.$select('playerContainer')?.$focus()
+      if (this.showContainer && this.showedContainerIndex === 0) {
+        this.$select('playerContainerMom')?.$focus()
+      } else if (this.showContainer && this.showedContainerIndex === 1) {
+        this.$select('playerContainerQual')?.$focus()
       } else if (!this.showContainer) {
         this.$trigger('focused')
         this.showNhidePlayerUIDebounced()

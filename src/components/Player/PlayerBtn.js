@@ -31,7 +31,7 @@ export default Blits.Component('PlayerBtn', {
   input: {
     enter(e) {
       this.parent.$input(e)
-      this.$emit(this.items.action)
+      this.$emit(this.items.action, this.items.actionVal)
     },
   },
 })
