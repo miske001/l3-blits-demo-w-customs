@@ -77,6 +77,7 @@ export default Blits.Component('Player', {
         items="$videoQualArr"
         vertContX="50"
         autoScroll="false"
+        :selected="$selectedQuality"
       />
     </Element>
   `,
@@ -95,6 +96,7 @@ export default Blits.Component('Player', {
       isScrubbing: false,
       scrubPreviewTime: 0,
       scrubTimeout: null,
+      selectedQuality: 0,
       plBtns: [
         {
           type: PlayerChBtn,
@@ -159,6 +161,7 @@ export default Blits.Component('Player', {
           height: 72,
           textSize: 27,
           radius: 35,
+          id: 0,
         },
         {
           type: SearchTerm,
@@ -168,6 +171,7 @@ export default Blits.Component('Player', {
           height: 72,
           textSize: 27,
           radius: 35,
+          id: 1,
         },
         {
           type: SearchTerm,
@@ -177,6 +181,7 @@ export default Blits.Component('Player', {
           height: 72,
           textSize: 27,
           radius: 35,
+          id: 2,
         },
         {
           type: SearchTerm,
@@ -186,6 +191,7 @@ export default Blits.Component('Player', {
           height: 72,
           textSize: 27,
           radius: 35,
+          id: 3,
         },
         {
           type: SearchTerm,
@@ -195,6 +201,7 @@ export default Blits.Component('Player', {
           height: 72,
           textSize: 27,
           radius: 35,
+          id: 4,
         },
         {
           type: SearchTerm,
@@ -204,6 +211,7 @@ export default Blits.Component('Player', {
           height: 72,
           textSize: 27,
           radius: 35,
+          id: 5,
         },
       ],
       moments: [
@@ -289,6 +297,10 @@ export default Blits.Component('Player', {
 
       this.$listen('togglePlayerContainer', (container) => {
         this.toggleContainer(container)
+      })
+
+      this.$listen('changeQuality', (val) => {
+        this.selectedQuality = val
       })
     },
     async ready() {

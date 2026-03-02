@@ -6,7 +6,7 @@ import MomentItem from './MomentItem'
 
 export default Blits.Component('PlayerContainer', {
   components: { VerticalContainer, SearchTerm, MomentItem },
-  props: ['label', 'width', 'height', 'items', 'vertContX', 'autoScroll'],
+  props: ['label', 'width', 'height', 'items', 'vertContX', 'autoScroll', 'selected'],
   template: `
     <Element :w="$width" :h="$height" color="#282828" :effects="[{type: 'radius', props: {radius: 15}}]">
       <Element y="24" x="24">
@@ -24,6 +24,7 @@ export default Blits.Component('PlayerContainer', {
           autoScroll="$autoScroll"
           gap="10"
           screenH="$height-110"
+          :selected="$selected"
         />
       </Element>
     </Element>

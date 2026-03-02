@@ -14,6 +14,7 @@ export default Blits.Component('VerticalContainer', {
         title="$item.title"
         autoScroll="true"
         screenW="$screenW"
+        :selected="$selected"
       />
     </Element>
   `,
@@ -26,6 +27,7 @@ export default Blits.Component('VerticalContainer', {
     'items',
     'looping',
     'type',
+    'selected',
     {
       key: 'screenH',
       default: 1000,
