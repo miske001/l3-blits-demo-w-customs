@@ -63,6 +63,7 @@ import Search from './pages/Search.js'
 import PinKeyboard from './pages/PinKeyboard.ts'
 import GridPage from './pages/GridPage.js'
 import Player from './pages/Player.js'
+import Settings from './pages/Settings.ts'
 
 const queryString = new URLSearchParams(window.location.search)
 const showSource = !!queryString.get('source')
@@ -153,6 +154,7 @@ export default Blits.Application({
     { path: '/kastom/pinkeyboard', component: PinKeyboard },
     { path: '/kastom/grid', component: GridPage },
     { path: '/kastom/player', component: Player },
+    { path: '/kastom/settings', component: Settings },
     // Benchmarks and stress tests
     { path: '/benchmarks/exponential', component: Exponential },
 

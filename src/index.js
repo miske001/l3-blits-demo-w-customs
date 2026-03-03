@@ -24,6 +24,7 @@ import App from './App.js'
 
 import colors from './themes/colors.js'
 import sizes from './themes/sizes.js'
+import { detectDeviceInfo } from './utils/deviceInfo.js'
 
 // Theme plugin instance for colors (light mode / dark mode)
 Blits.Plugin(theme, 'colors', {
@@ -47,6 +48,13 @@ Blits.Plugin(theme, 'sizes', {
 
 // Use the Blits Language plugin
 Blits.Plugin(language)
+
+const initDeviceInfo = async () => {
+  // detect device info i spremi u storage
+  const info = await detectDeviceInfo()
+}
+
+initDeviceInfo()
 
 Blits.Launch(App, 'app', {
   w: 1920,

@@ -275,6 +275,11 @@ export default Blits.Component('Portal', {
           id: 'kastom/grid',
           description: 'Grid layout for poster/card items',
         },
+        {
+          title: 'Settings',
+          id: 'kastom/settings',
+          description: 'Settings page',
+        },
       ],
       benchmark: [
         {
