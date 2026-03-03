@@ -149,7 +149,11 @@ export default Blits.Application({
     // Kastom komponente
     { path: '/kastom/verthor', component: VodPreview },
     { path: '/kastom/horlayproba', component: HorLayout },
-    { path: '/kastom/sominavbar', component: Home },
+    {
+      path: '/kastom/sominavbar',
+      component: Home,
+      options: { keepAlive: true },
+    },
     { path: '/kastom/input&keyboard', component: Search },
     { path: '/kastom/pinkeyboard', component: PinKeyboard },
     { path: '/kastom/grid', component: GridPage },

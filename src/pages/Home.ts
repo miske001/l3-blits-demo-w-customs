@@ -37,7 +37,9 @@ export default Blits.Component("Home", {
       });
     },
     focus() {
-      this.$trigger("focused");
+      if (!this.showProfile) {
+        this.$trigger("focused");
+      }
     },
   },
 

@@ -46,7 +46,7 @@ export default Blits.Component("Settings", {
 
   state() {
     return {
-      focused: 0,
+      focused: 1,
       selectedSection: "Device information", // default
       deviceInfo: [] as any,
     };
@@ -86,7 +86,6 @@ export default Blits.Component("Settings", {
       });
     },
     ready() {
-      this.$select("goback")?.$focus();
       this.selectedSection === "Account information";
 
       const info = getStoredDeviceInfo(this.$storage);

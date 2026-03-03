@@ -29,5 +29,12 @@ export default Blits.Component("SettingsButton", {
       this.hasFocus = false;
     },
   },
+  input: {
+    enter() {
+      this.$router.to("/kastom/settings");
+      /* this.$emit("toggleProfile");
+      this.parent.focused = 0; */
+    },
+  },
 });
 
