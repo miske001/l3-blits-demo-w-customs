@@ -66,6 +66,7 @@ Blits.Launch(App, 'app', {
   defaultFont: 'lato',
   holdTimeout: 1000,
   keymap: { ...keymapping() },
+  enableMouse: true,
   fonts: [
     {
       family: 'lato',

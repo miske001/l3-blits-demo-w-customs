@@ -15,6 +15,8 @@ export default Blits.Component('VerticalContainer', {
         autoScroll="true"
         screenW="$screenW"
         :selected="$selected"
+        indexInV="$index"
+        :isRowFocused="$index === $focused"
       />
     </Element>
   `,
@@ -53,6 +55,7 @@ export default Blits.Component('VerticalContainer', {
     return {
       focused: 0,
       y: 0,
+      isScrolling: false,
     }
   },
   hooks: {
@@ -92,15 +95,20 @@ export default Blits.Component('VerticalContainer', {
     scroll() {
       if (this.autoScroll) {
         // this.y = -this.rowOffset(this.focused)
+        this.isScrolling = true
 
         const h = this.items[0].rowH ? this.items[0]?.rowH : this.items[0].height
 
         this.y =
           0 -
-          (this.items.length - this.screenH / (h + this.gap) < 0
+          (this.items.length - this.screenH / (h + this.gap - 15) < 0
             ? 0
-            : Math.min(this.focused, this.items.length - this.screenH / (h + this.gap)) *
-              (h + this.gap))
+            : Math.min(this.focused, this.items.length - this.screenH / (h + this.gap - 15)) *
+              (h + this.gap - 15))
+
+        setTimeout(() => {
+          this.isScrolling = false
+        }, 300) // match your transition duration
       }
     },
   },

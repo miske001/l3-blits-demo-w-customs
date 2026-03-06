@@ -14,9 +14,10 @@ export default Blits.Component('HorizontalContainer', {
           :ref="'list-item-'+$index"
           :key="$index"
           :items="$item.items ? $item.items : $item"
-          :alpha="$rowAlpha ? ($index === $focused ? 1 : 0.6) : undefined"
+          :alpha="$isRowFocused ? ($index === $focused ? 1 : 0.6) : 0.6"
           autoScroll="true"
           screenH="$screenH"
+          index="$index"
         />
       </Element>
     </Element>
@@ -47,6 +48,8 @@ export default Blits.Component('HorizontalContainer', {
       key: 'allowBubbling',
       default: false,
     },
+    'indexInV',
+    'isRowFocused',
   ],
   state() {
     return {
@@ -57,6 +60,13 @@ export default Blits.Component('HorizontalContainer', {
   hooks: {
     ready() {
       // console.log('asdf props: ', this.props)
+      console.log('asdf INDEXES: ', this.indexInV)
+    },
+    hover() {
+      console.log('asdf hor iteeem: ', this.indexInV)
+      if (this.parent.isScrolling) return
+
+      this.parent.focused = this.indexInV
     },
   },
   watch: {
@@ -67,7 +77,6 @@ export default Blits.Component('HorizontalContainer', {
       const focusItem = this.$select(`list-item-${value}`)
       if (focusItem && focusItem.$focus) {
         focusItem.$focus()
-        // if(this.items)
         this.scroll()
       }
     },
