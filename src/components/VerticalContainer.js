@@ -101,10 +101,10 @@ export default Blits.Component('VerticalContainer', {
 
         this.y =
           0 -
-          (this.items.length - this.screenH / (h + this.gap - 15) < 0
+          (this.items.length - this.screenH / (h + this.gap) < 0
             ? 0
-            : Math.min(this.focused, this.items.length - this.screenH / (h + this.gap - 15)) *
-              (h + this.gap - 15))
+            : Math.min(this.focused, this.items.length - this.screenH / (h + this.gap)) *
+              (h + this.gap))
 
         setTimeout(() => {
           this.isScrolling = false

@@ -12,6 +12,8 @@ export default Blits.Component('Grid', {
         :y="Math.floor($index / ($columns || $baseColumns)) * $totalHeight"
         :ref="'grid-item-'+$index"
         :key="$index"
+        :alpha="($index === $focused ? 1 : 0.6)"
+        index="$index"
       />
     </Element>
   `,
