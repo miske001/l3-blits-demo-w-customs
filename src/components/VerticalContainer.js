@@ -14,22 +14,19 @@ export default Blits.Component('VerticalContainer', {
         title="$item.title"
         autoScroll="true"
         screenW="$screenW"
-        :selected="$selected"
+        index="$index"
         indexInV="$index"
+        :alpha="$isLeafLevel ? ($index === $focused && $isColFocused ? 1 : 0.6) : undefined"
         :isRowFocused="$index === $focused"
       />
     </Element>
   `,
   props: [
     'autoScroll',
-    'autoscrollOffset',
-    'itemOffset',
-    'itemHeight',
-    'itemWidth',
     'items',
     'looping',
-    'type',
-    'selected',
+    'indexInH',
+    'isColFocused',
     {
       key: 'screenH',
       default: 1000,
@@ -58,9 +55,17 @@ export default Blits.Component('VerticalContainer', {
       isScrolling: false,
     }
   },
+  computed: {
+    isLeafLevel() {
+      return this.items?.[0]?.isLeaf
+    },
+  },
   hooks: {
-    ready() {
-      console.log('asdf props vert: ', this.items)
+    hover() {
+      if (!this.parent.componentId.includes('HorizontalContainer')) return
+      if (this.parent.isScrolling) return
+
+      this.parent.focused = this.indexInH
     },
   },
   watch: {
