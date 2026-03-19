@@ -12,15 +12,17 @@ export default Blits.Component('Keyboard', {
   template: `
     <Element>
       <!-- <Element w="74" h="84" mount="{x:0.5, y:0.5}" :x.transition="$focusX" :y.transition="$focusY" color="0xffffff33" /> -->
-      <ActionKeyContainer ref="actionContainer"> </ActionKeyContainer>
+      <ActionKeyContainer ref="actionContainer" :activeZone="$activeZone" :focused="$actionIndex"> </ActionKeyContainer>
       <SearchKeyboardKey
         :for="(item, index) in $keys"
         :x="$keyX"
         :ref="'key-'+$index"
-        key="$item"
+        :key="$index"
         value="$item"
         :y="$keyY"
         :layout="$layout"
+        index="$index"
+        :isFocused="$activeZone === 'keys' && $index === $focusIndex"
       />
     </Element>
   `,
@@ -42,7 +44,9 @@ export default Blits.Component('Keyboard', {
   state() {
     return {
       focusIndex: 0,
+      actionIndex: 0,
       layout: 'lower',
+      activeZone: 'keys',
       keys: [
         'a',
         'b',
@@ -84,13 +88,23 @@ export default Blits.Component('Keyboard', {
     }
   },
   methods: {
-    focusAt(index) {
-      this.focusIndex = index
+    focusAt(index, zone) {
+      if (zone === 'keys') {
+        this.activeZone = zone
+        this.focusIndex = index
+      } else {
+        this.$select('actionContainer').$focus()
+        this.actionIndex = index
+        this.activeZone = zone
+      }
     },
   },
   watch: {
     hasFocus(isFocused) {
-      if (isFocused) this.$trigger('focusIndex')
+      if (isFocused) {
+        this.activeZone = 'keys'
+        this.$trigger('focusIndex')
+      }
     },
     focusIndex(value) {
       const focusItem = this.$select(`key-${value}`)
@@ -118,10 +132,13 @@ export default Blits.Component('Keyboard', {
     },
     up() {
       if (this.focusIndex < this.perRow) {
-        this.focusIndex < this.perRow / 2
-          ? this.$select('actionContainer').focusAt(0)
-          : this.$select('actionContainer').focusAt(1)
-        // this.$select('actionContainer').focusAt(1)
+        this.activeZone = 'actions'
+
+        const index = this.focusIndex < this.perRow / 2 ? 0 : 1
+        this.actionIndex = index
+
+        this.$select('actionContainer').$focus()
+
         return
       } else {
         this.focusIndex = Math.max(this.focusIndex - this.perRow, 0)
@@ -130,6 +147,7 @@ export default Blits.Component('Keyboard', {
     down() {
       if (this.focusIndex >= this.keys.length - this.perRow) {
         this.$emit('focusDown')
+        this.activeZone = 'terms'
         return
       } else {
         this.focusIndex = Math.min(this.focusIndex + this.perRow, this.keys.length - 1)
@@ -150,11 +168,27 @@ export default Blits.Component('Keyboard', {
       this.parent.$focus(e)
     },
   },
-  hooks: {
+  /* hooks: {
     init() {
-      this.$listen('focusAt', (index) => {
-        this.focusIndex = index
+      this.$listen('focusAt', ({ index, zone }) => {
+        if (zone === 'actions') {
+          const isAlreadyActive = this.activeZone === 'actions'
+
+          this.actionIndex = index
+          this.activeZone = zone
+
+          if (!isAlreadyActive) {
+            this.$select('actionContainer').$focus()
+          }
+
+          const item = this.$select(`actionContainer.action-${index}`)
+          if (item && item.$focus) item.$focus()
+        } else {
+          this.focusIndex = index
+          this.activeZone = zone
+          this.$focus()
+        }
       })
     },
-  },
+  }, */
 })

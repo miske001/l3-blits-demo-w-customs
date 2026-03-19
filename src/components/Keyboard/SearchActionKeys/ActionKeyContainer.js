@@ -7,57 +7,54 @@ export default Blits.Component('ActionKeyContainer', {
   },
   template: `
     <Element w="$width" h="84">
-      <ActionKey value="spacebar" width="253" y="-9" ref="action-0" :focused="$focused" />
-      <ActionKey x="270" y="-9" value="backspace" width="253" ref="action-1" :focused="$focused" />
+      <ActionKey
+        :for="(item, index) in $actionKeys"
+        :ref="'action-' + $index"
+        :key="$index"
+        :value="$item.value"
+        :width="$item.width"
+        :x="$item.x"
+        y="-9"
+        :index="$index"
+        :isFocused="$activeZone === 'actions' && $focused === $index"
+      />
     </Element>
   `,
-  props: ['width'],
+  props: ['width', 'activeZone', 'focused'],
   state() {
     return {
-      focused: 0,
+      actionKeys: [
+        { value: 'spacebar', width: 253, x: 0 },
+        { value: 'backspace', width: 253, x: 270 },
+      ],
     }
   },
-  methods: {
-    focusAt(index = 0) {
-      this.focused = index
-      const focusItem = this.$select(`action-${index}`)
-      if (focusItem && focusItem.$focus) {
-        focusItem.$focus()
-      }
+  watch: {
+    hasFocus(isFocused) {
+      if (isFocused) this.$trigger('focused')
+    },
+    focused(value) {
+      const focusItem = this.$select(`action-${value}`)
+      if (focusItem && focusItem.$focus) focusItem.$focus()
     },
   },
-  //   watch: {
-  //     hasFocus(isFocused) {
-  //       if (isFocused) this.$trigger('focused')
-  //     },
-  //     focused(value) {
-  //       const focusItem = this.$select(`action-${value}`)
-  //       if (focusItem && focusItem.$focus) {
-  //         focusItem.$focus()
-  //       }
-  //     },
-  //   },
   input: {
     up() {
       return
     },
     down() {
-      console.log('asdf this.parentparent: ', this.parent.parent)
-      //   this.parent.parent.focusAt(4)
       if (this.focused === 0) {
-        this.$emit('focusAt', 1)
+        this.parent.focusAt(1, 'keys')
       } else {
-        this.$emit('focusAt', 4)
+        this.parent.focusAt(4, 'keys')
       }
       this.parent.parent.$focus()
     },
     right() {
-      this.focused = 1
-      this.focusAt(1)
+      this.parent.focusAt(1, 'actions')
     },
     left() {
-      this.focused = 0
-      this.focusAt(0)
+      this.parent.focusAt(0, 'actions')
     },
   },
 })

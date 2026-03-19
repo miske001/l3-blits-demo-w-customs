@@ -5,24 +5,29 @@ export default Blits.Component('ActionKey', {
     <Element
       w="$width"
       h="84"
-      :color="$hasFocus ? '#FFF' : '#1b1c22'"
+      :color="$isFocused ? '#FFF' : '#1b1c22'"
       :effects="[{type: 'radius', props: {radius: 10}}]"
-      :scale.transition="$hasFocus ? 1.1 : 1"
+      :scale.transition="$isFocused ? 1.1 : 1"
     >
-      <Element :src="$imgSrc" w="50" h="50" :color="$hasFocus ? '#0D0E12' : '#FFF'" mount="0.5" :x="$width/2" :y="84/2" />
+      <Element :src="$imgSrc" w="50" h="50" :color="$isFocused ? '#0D0E12' : '#FFF'" mount="0.5" :x="$width/2" :y="84/2" />
     </Element>
   `,
-  props: ['value', 'width', 'focused'],
+  props: ['value', 'width', 'isFocused', 'index'],
   computed: {
     imgSrc() {
       return `assets/${this.value}.png`
     },
   },
+  hooks: {
+    hover() {
+      this.parent.$focus()
+      this.parent.parent.focusAt(this.index, 'actions')
+    },
+  },
   input: {
     enter() {
-      console.log('asdasd focused: ', this.focused)
       this.$emit('onKeyInput', {
-        key: this.focused === 0 ? ' ' : 'backspace',
+        key: this.index === 0 ? ' ' : 'backspace',
       })
     },
   },

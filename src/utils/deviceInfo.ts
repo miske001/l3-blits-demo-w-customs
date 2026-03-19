@@ -134,7 +134,7 @@ export const detectDeviceInfo = async (
   if ($storage) {
     $storage.set('deviceInfo', info)
   } else {
-    console.log('asdf info: ', info);
+    // console.log('asdf info: ', info);
     localStorage.setItem('deviceInfo', JSON.stringify(info))
   }
 
@@ -149,7 +149,7 @@ export const getStoredDeviceInfo = (
   $storage?: StoragePlugin
 ): DeviceInfo | null => {
   if ($storage) {
-    console.log("asdf storage: ", $storage.get("deviceInfo"));
+    // console.log("asdf storage: ", $storage.get("deviceInfo"));
     return ($storage.get('deviceInfo') as DeviceInfo) || null
   }
 
