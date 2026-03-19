@@ -15,9 +15,9 @@ export default Blits.Component('Search', {
     <Element>
       <Text content="Search" />
       <Keyboard x="100" :y.transition="$keyboardY" ref="keyboard" margin="100" perRow="6" />
-      <Text x="100" :y.transition="$keyboardLabelY" content="keyboard" :alpha="$keyboardY < 0" />
+      <Text x="100" :y.transition="$keyboardLabelY" content="keyboard" />
       <Text x="750" y="150" size="46" :content="$searchTerm || $placeholder" :alpha="$searchTerm ? 1 : 0.5" />
-      <Element :y.transition="$columnY" height="230" width="600" overflow="false">
+      <Element :y.transition="$columnY" height="430" width="600" overflow="false">
         <VerticalContainer
           x="100"
           items="$searchQueries"
@@ -25,7 +25,7 @@ export default Blits.Component('Search', {
           gap="10"
           ref="column"
           above="keyboard"
-          screenH="230"
+          screenH="430"
         />
       </Element>
       <!-- <SearchTerm x="100" y="850" value="mgt" /> -->
@@ -37,7 +37,7 @@ export default Blits.Component('Search', {
       placeholder: 'Search',
       keyboardY: 150,
       columnY: 850,
-      keyboardLabelY: 800,
+      keyboardLabelY: -200,
       searchQueries: [
         {
           rowH: 75,
@@ -85,14 +85,15 @@ export default Blits.Component('Search', {
         }
       })
       this.$listen('focusDown', () => {
-        // this.keyboardY = -700
-        // this.columnY = 250
-        // this.keyboardLabelY = 200
+        this.keyboardY = -700
+        this.columnY = 250
+        this.keyboardLabelY = 200
         this.$select('column').$focus()
       })
       this.$listen('focusUpFromVert', (above) => {
-        // this.keyboardY = 150
-        // this.columnY = 850
+        this.keyboardY = 150
+        this.columnY = 850
+        this.keyboardLabelY = -200
 
         this.$select(above).$focus()
       })
