@@ -2,20 +2,20 @@ import Blits from '@lightningjs/blits'
 import Keyboard from '../components/Keyboard/Keyboard'
 import SearchTerm from '../components/Keyboard/SearchTerm'
 import VerticalContainer from '../components/VerticalContainer'
-import Item from '../components/Item'
+import KeyboardLabelBtn from '../components/Keyboard/KeyboardLabelBtn'
 
 export default Blits.Component('Search', {
   components: {
     Keyboard,
     SearchTerm,
     VerticalContainer,
-    Item,
+    KeyboardLabelBtn,
   },
   template: `
     <Element>
       <Text content="Search" />
       <Keyboard x="100" :y.transition="$keyboardY" ref="keyboard" margin="100" perRow="6" />
-      <Text x="100" :y.transition="$keyboardLabelY" content="keyboard" />
+      <KeyboardLabelBtn x="100" :y.transition="$keyboardLabelY" w="200" h="60" />
       <Text x="750" y="150" size="46" :content="$searchTerm || $placeholder" :alpha="$searchTerm ? 1 : 0.5" />
       <Element :y.transition="$columnY" height="430" width="600" overflow="false">
         <VerticalContainer
