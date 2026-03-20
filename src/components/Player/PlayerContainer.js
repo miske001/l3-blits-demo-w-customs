@@ -25,6 +25,7 @@ export default Blits.Component('PlayerContainer', {
           gap="10"
           screenH="$height-110"
           :selected="$selected"
+          :isColFocused="$isColumnFocused"
         />
       </Element>
     </Element>
@@ -32,15 +33,20 @@ export default Blits.Component('PlayerContainer', {
   state() {
     return {
       focused: 0,
+      isColumnFocused: false,
     }
   },
   hooks: {
     focus() {
+      this.isColumnFocused = true
+
       this.$select('vertCont').$focus()
     },
   },
   input: {
     back() {
+      this.isColumnFocused = false
+
       this.parent.$focus()
       this.$emit('togglePlayerContainer')
     },

@@ -162,6 +162,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 35,
           id: 0,
+          isLeaf: true,
         },
         {
           type: SearchTerm,
@@ -172,6 +173,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 35,
           id: 1,
+          isLeaf: true,
         },
         {
           type: SearchTerm,
@@ -182,6 +184,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 35,
           id: 2,
+          isLeaf: true,
         },
         {
           type: SearchTerm,
@@ -192,6 +195,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 35,
           id: 3,
+          isLeaf: true,
         },
         {
           type: SearchTerm,
@@ -202,6 +206,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 35,
           id: 4,
+          isLeaf: true,
         },
         {
           type: SearchTerm,
@@ -212,6 +217,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 35,
           id: 5,
+          isLeaf: true,
         },
       ],
       moments: [
