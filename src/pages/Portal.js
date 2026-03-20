@@ -280,6 +280,11 @@ export default Blits.Component('Portal', {
           id: 'kastom/settings',
           description: 'Settings page',
         },
+        {
+          title: 'Login',
+          id: 'kastom/login',
+          description: 'Login page',
+        },
       ],
       benchmark: [
         {

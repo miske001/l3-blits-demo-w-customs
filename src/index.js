@@ -89,6 +89,26 @@ Blits.Launch(App, 'app', {
       type: 'msdf',
       file: 'fonts/Lato-Black.ttf',
     },
+    {
+      family: 'poppins',
+      type: 'msdf',
+      file: 'fonts/Poppins-Regular.ttf',
+    },
+    {
+      family: 'poppinsBold',
+      type: 'msdf',
+      file: 'fonts/Poppins-Bold.ttf',
+    },
+    {
+      family: 'poppinsSemiBold',
+      type: 'msdf',
+      file: 'fonts/Poppins-SemiBold.ttf',
+    },
+    {
+      family: 'poppinsItalic',
+      type: 'msdf',
+      file: 'fonts/Poppins-Italic.ttf',
+    },
   ],
   canvasColor: 'transparent',
   viewportMargin: 100,
