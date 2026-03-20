@@ -18,7 +18,7 @@ export default Blits.Component('HorizontalContainer', {
           screenH="$screenH"
           index="$index"
           indexInH="$index"
-          :alpha="$isLeafLevel ? ($index === $focused && $isRowFocused ? 1 : 0.6) : undefined"
+          :isFocused="$isLeafLevel && ($index === $focused && $isRowFocused)"
           :isColFocused="$index === $focused"
         />
       </Element>

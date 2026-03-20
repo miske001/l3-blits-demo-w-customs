@@ -10,7 +10,7 @@ export default Blits.Component('Keyboard', {
     SearchKeyboardKey,
   },
   template: `
-    <Element>
+    <Element ref="keyboard">
       <!-- <Element w="74" h="84" mount="{x:0.5, y:0.5}" :x.transition="$focusX" :y.transition="$focusY" color="0xffffff33" /> -->
       <ActionKeyContainer ref="actionContainer" :activeZone="$activeZone" :focused="$actionIndex"> </ActionKeyContainer>
       <SearchKeyboardKey
@@ -140,8 +140,10 @@ export default Blits.Component('Keyboard', {
         this.$select('actionContainer').$focus()
 
         return
-      } else {
+      } else if (this.activeZone === 'keys') {
         this.focusIndex = Math.max(this.focusIndex - this.perRow, 0)
+      } else {
+        return
       }
     },
     down() {
@@ -149,9 +151,9 @@ export default Blits.Component('Keyboard', {
         this.$emit('focusDown')
         this.activeZone = 'terms'
         return
-      } else {
+      } else if (this.activeZone === 'keys') {
         this.focusIndex = Math.min(this.focusIndex + this.perRow, this.keys.length - 1)
-      }
+      } else return
     },
     enter(e) {
       const key = this.keys[this.focusIndex]

@@ -5,7 +5,7 @@ export default Blits.Component('SearchTerm', {
     <Element
       w="$items.width"
       h="$items.height"
-      :color="$hasFocus ? '#FFF' : 'transparent'"
+      :color="$isFocused ? '#FFF' : 'transparent'"
       :effects="[{type: 'radius', props: {radius: $items.radius}}]"
       x="-10"
     >
@@ -15,13 +15,13 @@ export default Blits.Component('SearchTerm', {
         w="24"
         x="10"
         :y="28"
-        :color="$hasFocus ? '#0D0E12' : '#FFF'"
+        :color="$isFocused ? '#0D0E12' : '#FFF'"
         :alpha="$isSelected ? 1 : 0"
       />
       <Text
         :content="$items.value"
         size="$items.textSize || 40"
-        :color="$hasFocus ? '#0D0E12' : '#FFF'"
+        :color="$isFocused ? '#0D0E12' : '#FFF'"
         mount="{x: 0, y: 0.5}"
         :x="$isSelected ? 45 : 10"
         :y="84/2"
@@ -30,6 +30,8 @@ export default Blits.Component('SearchTerm', {
   `,
   props: [
     'items',
+    'index',
+    'isFocused',
     {
       key: 'selected',
       default: null,
@@ -46,6 +48,12 @@ export default Blits.Component('SearchTerm', {
   input: {
     enter() {
       this.$emit('changeQuality', this.items.id)
+    },
+  },
+  hooks: {
+    hover() {
+      this.parent.parent.$select('keyboard').activeZone = 'terms'
+      this.$emit('focusDown', this.index)
     },
   },
 })

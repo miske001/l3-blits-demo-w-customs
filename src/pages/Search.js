@@ -26,6 +26,7 @@ export default Blits.Component('Search', {
           ref="column"
           above="keyboard"
           screenH="430"
+          :isColFocused="$isColumnFocused"
         />
       </Element>
       <!-- <SearchTerm x="100" y="850" value="mgt" /> -->
@@ -38,38 +39,65 @@ export default Blits.Component('Search', {
       keyboardY: 150,
       columnY: 850,
       keyboardLabelY: -200,
+      isColumnFocused: false,
       searchQueries: [
-        {
+        /* {
           rowH: 75,
           type: SearchTerm,
           value: 'abc',
           width: 200,
           height: 75,
+        }, */
+        {
+          rowH: 75,
+          type: SearchTerm,
+          isLeaf: true,
+          items: {
+            value: 'cbdd',
+            width: 200,
+            height: 75,
+            type: SearchTerm,
+          },
         },
         {
           rowH: 75,
           type: SearchTerm,
-          items: { value: 'cbdd', width: 200, height: 75, type: SearchTerm },
+          items: {
+            value: 'adff',
+            width: 200,
+            height: 75,
+            type: SearchTerm,
+          },
         },
         {
           rowH: 75,
           type: SearchTerm,
-          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
+          items: {
+            value: 'adff',
+            width: 200,
+            height: 75,
+            type: SearchTerm,
+          },
         },
         {
           rowH: 75,
           type: SearchTerm,
-          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
+          items: {
+            value: 'adff',
+            width: 200,
+            height: 75,
+            type: SearchTerm,
+          },
         },
         {
           rowH: 75,
           type: SearchTerm,
-          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
-        },
-        {
-          rowH: 75,
-          type: SearchTerm,
-          items: { value: 'adff', width: 200, height: 75, type: SearchTerm },
+          items: {
+            value: 'adff',
+            width: 200,
+            height: 75,
+            type: SearchTerm,
+          },
         },
       ],
     }
@@ -84,27 +112,27 @@ export default Blits.Component('Search', {
           this.searchTerm += character
         }
       })
-      this.$listen('focusDown', () => {
+      this.$listen('focusDown', (index = 0) => {
+        // if (this.$select('column').focused > 0) return
         this.keyboardY = -700
         this.columnY = 250
         this.keyboardLabelY = 200
+        this.isColumnFocused = true
         this.$select('column').$focus()
+        this.$select('column').focused = index
       })
       this.$listen('focusUpFromVert', (above) => {
         this.keyboardY = 150
         this.columnY = 850
         this.keyboardLabelY = -200
+        this.isColumnFocused = false
 
         this.$select(above).$focus()
       })
     },
     focus() {
+      if (this.$select('keyboard').activeZone !== 'keys') return
       this.$select('keyboard').$focus()
-    },
-  },
-  input: {
-    down() {
-      console.log('asdf upad dole')
     },
   },
 })
