@@ -5,10 +5,10 @@ export default Blits.Component("InfoSection", {
 
   template: `
     <Element>
-      <Text :content="$section" size="48" color="#ED51F0" />
+      <Text :content="$section" size="48" font="poppinsBold" color="#ED51F0" />
       <Layout direction="vertical" gap="25" y="80">
         <Element :for="(item, index) in $deviceInfo" :key="$item.key" h="100" w="500">
-          <Text :content="$item.key" size="36" />
+          <Text :content="$item.key" font="poppinsBold" size="36" />
           <Text :content="$item.value" maxwidth="840" size="32" maxlines="1" y="60" />
         </Element>
       </Layout>

@@ -1,10 +1,8 @@
 import Blits from '@lightningjs/blits'
 
 
-export default Blits.Component('Settings', {
-  components: {
-
-  },
+export default Blits.Component("Settings", {
+  components: {},
 
   template: `
     <Element
@@ -15,28 +13,27 @@ export default Blits.Component('Settings', {
     >
       <Layout direction="horizontal" padding="{ left: 12, top: 12 }" gap="4" align-items="end">
         <Element src="/assets/arrowLeft.png" w="50" h="50" />
-        <Text content="Go Back" x="110" y="48"></Text>
+        <Text content="Go Back" x="110" font="poppinsBold" y="48"></Text>
       </Layout>
     </Element>
   `,
   state() {
     return {
       hasFocus: false,
-    }
+    };
   },
-   hooks: {
+  hooks: {
     focus() {
-      this.hasFocus = true
+      this.hasFocus = true;
     },
     unfocus() {
-      this.hasFocus = false
+      this.hasFocus = false;
     },
-
   },
 
   input: {
     enter() {
-      this.$router.back()
-    }
-  }
-})
+      this.$router.back();
+    },
+  },
+});
