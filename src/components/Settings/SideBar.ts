@@ -5,7 +5,9 @@ import Button from "./Button";
 import { exitApp, reloadApp, restartApp } from "../../utils/appControl";
 
 export default Blits.Component("SideBar", {
-  props: ["selectedSection"],
+  props: {
+    selectedSection: ''
+  },
   components: {
     Button,
   },
@@ -41,7 +43,7 @@ export default Blits.Component("SideBar", {
   },
 
   watch: {
-    hasFocus(isFocused: boolean) {
+    $hasFocus(isFocused: boolean) {
       if (isFocused) this.$trigger("focused");
     },
     focused(value: number) {
@@ -60,10 +62,10 @@ export default Blits.Component("SideBar", {
     },
     up() {
       if (this.focused === 0) {
-        // console.log('asdf parent: ', this.parent)
+        // console.log('asdf parent: ', this.$parent)
 
-        this.parent.focused = 0; //set the parent focused index in order to properly shift to search button
-        this.parent.$focus();
+        this.$parent.focused = 0; //set the parent focused index in order to properly shift to search button
+        this.$parent.$focus();
       }
       this.focused = Math.max(this.focused - 1, 0);
       console.log("okida gore");

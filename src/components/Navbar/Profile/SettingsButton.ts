@@ -5,7 +5,7 @@ export default Blits.Component("SettingsButton", {
     <Element
       w="302"
       h="68"
-      :color="$hasFocus ? {left:'#ED51F0', right:'#9A33FF'} : '#3D3D3D'"
+      :color="$$hasFocus ? {left:'#ED51F0', right:'#9A33FF'} : '#3D3D3D'"
       :effects="[ { type: 'radius', props: { radius: 35 } } ]"
     >
       <Layout direction="horizontal" padding="{ left: 16, top: 16 }" gap="12" align-items="end">
@@ -33,7 +33,7 @@ export default Blits.Component("SettingsButton", {
     enter() {
       this.$router.to("/kastom/settings");
       /* this.$emit("toggleProfile");
-      this.parent.focused = 0; */
+      this.$parent.focused = 0; */
     },
   },
 });

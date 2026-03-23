@@ -30,7 +30,7 @@ export default Blits.Component('Player', {
         :alpha.transition="$controlsVisibility"
       >
         <Element x="60" y="20">
-          <Element y="-10" w="80" h="80" color="#2B2B2B" :effects="[{type: 'radius', props: {radius:99}}]">
+          <Element y="-10" w="80" h="80" color="#2B2B2B" rounded="99">
             <Element
               mount="0.5"
               y="40"

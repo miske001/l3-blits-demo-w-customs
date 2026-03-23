@@ -44,17 +44,17 @@ export default Blits.Component('ActionKeyContainer', {
     },
     down() {
       if (this.focused === 0) {
-        this.parent.focusAt(1, 'keys')
+        this.$parent.focusAt(1, 'keys')
       } else {
-        this.parent.focusAt(4, 'keys')
+        this.$parent.focusAt(4, 'keys')
       }
-      this.parent.parent.$focus()
+      this.$parent.parent.$focus()
     },
     right() {
-      this.parent.focusAt(1, 'actions')
+      this.$parent.focusAt(1, 'actions')
     },
     left() {
-      this.parent.focusAt(0, 'actions')
+      this.$parent.focusAt(0, 'actions')
     },
   },
 })

@@ -2,16 +2,11 @@ import Blits from '@lightningjs/blits'
 
 const Key = Blits.Component('Key', {
   template: `
-    <Element
-      w="314"
-      h="83"
-      :color="$hasFocus ? '#FFF' : 'transparent'"
-      :effects="[{ type: 'radius', props: { radius: 50 } }]"
-    >
+    <Element w="314" h="83" :color="$$hasFocus ? '#FFF' : 'transparent'" rounded="50">
       <Text
         :content="$displayValue"
         size="48"
-        :color="$hasFocus ? '#0D0E12' : '#FFF'"
+        :color="$$hasFocus ? '#0D0E12' : '#FFF'"
         placement="{x:'center', y:'middle'}"
       />
       <Element :src="$item.src" w="36" h="36" placement="{x:'center', y:'middle'}" />
@@ -77,7 +72,7 @@ export default Blits.Component('Keyboard', {
   },
 
   watch: {
-    hasFocus(isFocused) {
+    $hasFocus(isFocused) {
       if (isFocused) this.$trigger('focusIndex')
     },
     focusIndex(value) {
@@ -155,7 +150,7 @@ export default Blits.Component('Keyboard', {
     }, */
 
     back(e) {
-      this.parent.$focus(e)
+      this.$parent.$focus(e)
     },
   },
 

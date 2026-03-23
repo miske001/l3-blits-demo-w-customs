@@ -71,9 +71,10 @@ export default Blits.Component("LoginPage", {
         placement="{x:'center'}"
         y="207"
         :w="$width"
+        h="80"
         height="84"
         color="#2B2B2BFF"
-        :effects="[ { type: 'radius', props: { radius: 50 } } ]"
+        rounded="50"
         :show="$filteredButtons.length > 0"
       >
         <Layout

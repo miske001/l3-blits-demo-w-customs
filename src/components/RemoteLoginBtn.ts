@@ -1,10 +1,10 @@
 import Blits from "@lightningjs/blits";
 
 export default Blits.Component("Button", {
-  props: [
-    { key: "label" },
-    { key: "w", default: null }, // opcioni width
-  ],
+  props: {
+    label: '',
+    w: null
+  },
 
   state() {
     return {
@@ -28,11 +28,9 @@ export default Blits.Component("Button", {
     <Element
       :w="$width"
       :h="$height"
-      :effects="[
-        { type: 'radius', props: { radius: 50 } },
-        { type: 'border', props: { width: 4, color: '#ED51F0' } }
-      ]"
-      :color="$hasFocus ? '#ED51F0' : 'transparent'"
+      rounded="50"
+      border="{w: 4, color: '#ED51F0'}"
+      :color="$$hasFocus ? '#ED51F0' : 'transparent'"
     >
       <Layout
         direction="horizontal"

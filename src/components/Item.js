@@ -6,14 +6,19 @@ export default Blits.Component('Item', {
       :alpha="$isFocused ? 1 : 0.6"
       w="$w"
       h="$h"
-      :effects="[{type: 'radius', props: {radius: $radius}}]"
       :color="$items?.color"
+      rounded="$radius"
+      :border="{w: $isFocused ? 5 : 0, color: '#fff'}"
     >
       <!-- <Element :src="$img" w="$w" h="$h" :color="$items.color" /> -->
       <Text content="$items?.color" color="#121212" size="20" mount="0.5" x="$items?.width/2" y="$items?.height/2" />
     </Element>
   `,
-  props: ['items', 'index', 'isFocused'],
+  props: {
+    items: null,
+    index: 0,
+    isFocused: null,
+  },
   state() {
     console.log('asdf items1234: ', this.items)
     return {
@@ -25,7 +30,7 @@ export default Blits.Component('Item', {
   },
   hooks: {
     hover() {
-      this.parent.focused = this.index
+      this.$parent.focused = this.index
     },
   },
 })

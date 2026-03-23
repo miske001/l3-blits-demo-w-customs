@@ -100,7 +100,7 @@ export default Blits.Component('Keyboard', {
     },
   },
   watch: {
-    hasFocus(isFocused) {
+    $hasFocus(isFocused) {
       if (isFocused) {
         this.activeZone = 'keys'
         this.$trigger('focusIndex')
@@ -167,7 +167,7 @@ export default Blits.Component('Keyboard', {
       }
     },
     back(e) {
-      this.parent.$focus(e)
+      this.$parent.$focus(e)
     },
   },
   /* hooks: {

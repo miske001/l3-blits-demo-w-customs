@@ -1,7 +1,10 @@
 import Blits from "@lightningjs/blits";
 
 export default Blits.Component("Button", {
-  props: [{ key: "label" }, { key: "selected", default: false }],
+  props: {
+    label: "",
+    selected: false,
+  },
 
   state() {
     return {
@@ -20,42 +23,23 @@ export default Blits.Component("Button", {
   },
 
   template: `
-    <Element :w="$width" :h="$height" :effects="[ { type: 'radius', props: { radius: 35 } } ]">
+    <Element :w="$width" :h="$height" rounded="35">
       <!-- FOCUSED (gradient fill) -->
-      <Element
-        :show="$hasFocus"
-        :w="$width"
-        :h="$height"
-        :color="{ left:'#ED51F0', right:'#9A33FF' }"
-        :effects="[ { type:'radius', props:{ radius:35 }} ]"
-      />
+      <Element :show="$$hasFocus" :w="$width" :h="$height" :color="{ left:'#ED51F0', right:'#9A33FF' }" rounded="35" />
     
       <!-- SELECTED (gradient border) -->
       <Element
-        :show="!$hasFocus && $selected"
+        :show="!$$hasFocus && $selected"
         :w="$width"
         :h="$height"
         :color="{ left:'#ED51F0', right:'#9A33FF' }"
-        :effects="[ { type:'radius', props:{ radius:35 }} ]"
+        rounded="35"
       >
-        <Element
-          x="2"
-          y="2"
-          :w="$width - 4"
-          :h="$height - 4"
-          color="#2B2B2BFF"
-          :effects="[ { type:'radius', props:{ radius:33 }} ]"
-        />
+        <Element x="2" y="2" :w="$width - 4" :h="$height - 4" color="#2B2B2BFF" rounded="35" />
       </Element>
     
       <!-- DEFAULT -->
-      <Element
-        :show="!$hasFocus && !$selected"
-        :w="$width"
-        :h="$height"
-        color="#2B2B2BFF"
-        :effects="[ { type:'radius', props:{ radius:35 }} ]"
-      />
+      <Element :show="!$$hasFocus && !$selected" :w="$width" :h="$height" color="#2B2B2BFF" rounded="35" />
     
       <!-- CONTENT -->
       <Layout direction="horizontal" placement="{ x: 'start', y: 'middle' }" gap="8" padding="{ left: 32, right: 32 }">

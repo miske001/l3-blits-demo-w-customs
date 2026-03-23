@@ -30,7 +30,7 @@ export default Blits.Component('SearchKeyboardKey', {
   },
   hooks: {
     hover() {
-      this.parent.focusAt(this.index, 'keys')
+      this.$parent.focusAt(this.index, 'keys')
     },
   },
 })

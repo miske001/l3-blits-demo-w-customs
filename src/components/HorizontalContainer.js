@@ -4,7 +4,7 @@ import Blits from '@lightningjs/blits'
 export default Blits.Component('HorizontalContainer', {
   template: `
     <Element>
-      <Text content="$title" color="#FFF" h="50" />
+      <Text content="$title" color="#FFF" h="50" :show="$title" />
       <Element :x.transition="$x" ref="container">
         <Component
           :for="(item, index) in $items"
@@ -24,30 +24,18 @@ export default Blits.Component('HorizontalContainer', {
       </Element>
     </Element>
   `,
-  props: [
-    'autoScroll',
-    'items',
-    'looping',
-    'title',
-    'indexInV',
-    'isRowFocused',
-    {
-      key: 'screenH',
-      default: 1000,
-    },
-    {
-      key: 'screenW',
-      default: 1820,
-    },
-    {
-      key: 'gap',
-      default: 50,
-    },
-    {
-      key: 'allowBubbling',
-      default: false,
-    },
-  ],
+  props: {
+    autoScroll: null,
+    items: null,
+    looping: null,
+    title: null,
+    indexInV: 0,
+    isRowFocused: null,
+    screenH: 1000,
+    screenW: 1820,
+    gap: 50,
+    allowBubbling: false,
+  },
   state() {
     return {
       focused: 0,
@@ -61,14 +49,14 @@ export default Blits.Component('HorizontalContainer', {
   },
   hooks: {
     hover() {
-      if (!this.parent.componentId.includes('VerticalContainer')) return
-      if (this.parent.isScrolling) return
+      if (!this.$parent.$componentId.includes('VerticalContainer')) return
+      if (this.$parent.isScrolling) return
 
-      this.parent.focused = this.indexInV
+      this.$parent.focused = this.indexInV
     },
   },
   watch: {
-    hasFocus(isFocused) {
+    $hasFocus(isFocused) {
       if (isFocused) this.$trigger('focused')
     },
     focused(value) {
@@ -116,15 +104,18 @@ export default Blits.Component('HorizontalContainer', {
   },
   input: {
     left(e) {
+      console.log('asdf upad left')
       this.changeFocus(-1)
-      this.allowBubbling && this.parent.$input(e)
+      this.allowBubbling && this.$parent.$input(e)
     },
     right(e) {
+      console.log('asdf upad right')
+
       this.changeFocus(1)
-      this.allowBubbling && this.parent.$input(e)
+      this.allowBubbling && this.$parent.$input(e)
     },
     enter(e) {
-      this.allowBubbling && this.parent.$input(e)
+      this.allowBubbling && this.$parent.$input(e)
       console.log('Selected item:', this.items[this.focused])
     },
   },

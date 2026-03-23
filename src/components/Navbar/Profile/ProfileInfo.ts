@@ -5,7 +5,7 @@ export default Blits.Component("ProfileInfo", {
     <Element
       w="302"
       h="68"
-      :color="$hasFocus ? {left:'#ED51F0', right:'#9A33FF'} : '#3D3D3D'"
+      :color="$$hasFocus ? {left:'#ED51F0', right:'#9A33FF'} : '#3D3D3D'"
       :effects="[ { type: 'radius', props: { radius: 35 } } ]"
     >
       <Circle size="60" src="/assets/profile.png" />

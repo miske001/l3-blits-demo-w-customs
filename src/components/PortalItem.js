@@ -9,9 +9,10 @@ export default Blits.Component('PortalItem', {
     <Element
       w="370"
       h="320"
-      :scale.transition="$hasFocus ? 1.1 : 1"
+      :scale.transition="$$hasFocus ? 1.1 : 1"
       :color="$backgroundColor"
-      :effects="[{type: 'radius', props: {radius: 5}}]"
+      rounded="5"
+      :border="{w: $$hasFocus ? 5 : 0, color: '#bada55'}"
     >
       <Text x="30" y="30" :content="$number" size="84" :color="$fontColor" />
       <Text
@@ -26,10 +27,10 @@ export default Blits.Component('PortalItem', {
         maxlines="1"
       />
       <Text x="30" y="200" :content="$description" maxwidth="300" size="28" :color="$fontColor" lineheight="32" />
-      <FocusBorder width="372" height="322" :alpha="$hasFocus ? 1 : 0" />
+      <!-- <FocusBorder width="372" height="322" :alpha="$$hasFocus ? 1 : 0" /> -->
     </Element>
   `,
-  props: ['title', 'description', 'index', 'id'],
+  props: { title: '', description: '', index: 0, id: 0 },
   state() {
     return {
       backgroundColor: '#44037a',

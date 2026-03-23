@@ -12,7 +12,12 @@ export default Blits.Component('ActionKey', {
       <Element :src="$imgSrc" w="50" h="50" :color="$isFocused ? '#0D0E12' : '#FFF'" mount="0.5" :x="$width/2" :y="84/2" />
     </Element>
   `,
-  props: ['value', 'width', 'isFocused', 'index'],
+  props: {
+    value: '',
+    width: '',
+    isFocused: false,
+    index: 0,
+  },
   computed: {
     imgSrc() {
       return `assets/${this.value}.png`
@@ -20,8 +25,8 @@ export default Blits.Component('ActionKey', {
   },
   hooks: {
     hover() {
-      this.parent.$focus()
-      this.parent.parent.focusAt(this.index, 'actions')
+      this.$parent.$focus()
+      this.$parent.$parent.focusAt(this.index, 'actions')
     },
   },
   input: {

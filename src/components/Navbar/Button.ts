@@ -20,12 +20,7 @@ export default Blits.Component('Button', {
   },
 
   template: `
-    <Element
-      :w="$width"
-      :h="$height"
-      :effects="[ { type: 'radius', props: { radius: 35 } } ]"
-      :color="$hasFocus ? { left:'#ED51F0', right:'#9A33FF' } : '#2B2B2BFF'"
-    >
+    <Element :w="$width" :h="$height" rounded="35" :color="$$hasFocus ? { left:'#ED51F0', right:'#9A33FF' } : '#2B2B2BFF'">
       <Layout
         direction="horizontal"
         placement="{ x: 'end', y: 'middle' }"

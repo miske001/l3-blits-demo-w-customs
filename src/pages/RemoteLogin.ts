@@ -4,7 +4,9 @@ import RemoteLoginBtn from "../components/RemoteLoginBtn";
 
 export default Blits.Component("RemoteLogin", {
   components: { InputField, RemoteLoginBtn },
-  props: [{ key: "active", default: true }],
+  props: {
+    active: true
+  },
 
   state() {
     return { focusedIndex: 0 };
@@ -68,7 +70,7 @@ export default Blits.Component("RemoteLogin", {
 
     focusPrev() {
       if (this.focusedIndex === 0) {
-        this.parent.$focus();
+        this.$parent.$focus();
         return;
       }
 
@@ -139,7 +141,7 @@ export default Blits.Component("RemoteLogin", {
       if (!this.active) return;
       // ako smo na email inputu
       if (this.focusedIndex === 0) {
-        const loginPage = this.parent;
+        const loginPage = this.$parent;
 
         loginPage.focused = 1; // indeks dugmeta "Use remote"
         loginPage.$select("btn-1")?.$focus();

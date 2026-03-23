@@ -5,12 +5,7 @@ export default Blits.Component("Settings", {
   components: {},
 
   template: `
-    <Element
-      w="232"
-      h="72"
-      :effects="[ { type: 'radius', props: { radius: 35 } } ]"
-      :color="$hasFocus ? { left:'#ED51F0', right:'#9A33FF' } : 'transparent'"
-    >
+    <Element w="232" h="72" rounded="35" :color="$$hasFocus ? { left:'#ED51F0', right:'#9A33FF' } : 'transparent'">
       <Layout direction="horizontal" padding="{ left: 12, top: 12 }" gap="4" align-items="end">
         <Element src="/assets/arrowLeft.png" w="50" h="50" />
         <Text content="Go Back" x="110" font="poppinsBold" y="48"></Text>

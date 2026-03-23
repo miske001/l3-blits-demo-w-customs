@@ -7,7 +7,7 @@ export default Blits.Component('NavbarRow', {
     Button
   },
   template: `
-    <Element :w="$width" h="80" x="565" y="49" color="#2B2B2BFF" :effects="[ { type: 'radius', props: { radius: 50 } } ]">
+    <Element :w="$width" h="80" x="565" y="49" color="#2B2B2BFF" rounded="50">
       <Layout
         direction="horizontal"
         gap="8"
@@ -41,7 +41,7 @@ export default Blits.Component('NavbarRow', {
     },
   },
   watch: {
-    hasFocus(isFocused) {
+    $hasFocus(isFocused) {
       if (isFocused) this.$trigger('focused')
     },
     focused(value) {
@@ -57,9 +57,9 @@ export default Blits.Component('NavbarRow', {
     },
     left() {
       if (this.focused === 0) {
-        console.log('asdf parent: ', this.parent)
-        this.parent.focused = 1 //set the parent focused index in order to properly shift to search button
-        this.parent.$focus()
+        console.log('asdf parent: ', this.$parent)
+        this.$parent.focused = 1 //set the parent focused index in order to properly shift to search button
+        this.$parent.$focus()
       }
       this.focused = Math.max(this.focused - 1, 0)
     },

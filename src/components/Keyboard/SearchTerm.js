@@ -52,7 +52,7 @@ export default Blits.Component('SearchTerm', {
   },
   hooks: {
     hover() {
-      this.parent.parent.$select('keyboard').activeZone = 'terms'
+      this.$parent.$parent.$select('keyboard').activeZone = 'terms'
       this.$emit('focusDown', this.index)
     },
   },

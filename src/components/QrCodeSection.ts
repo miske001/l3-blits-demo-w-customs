@@ -1,19 +1,12 @@
 import Blits from "@lightningjs/blits";
 
 export default Blits.Component("QrCodeSection", {
-  props: [
-    {
-      key: "loginMethod",
-      default: "phone",
-    },
-    {
-      key: "offsetY",
-      default: 50,
-    },
-    "qrSrc",
-    "content",
-  ],
-
+  props: {
+    loginMethod: 'phone',
+    offsetY: 50,
+    qrSrc: '',
+    content: ''
+  },
   template: `
     <Layout :show="$loginMethod === 'phone'" x="120" y="340" direction="vertical" gap="15">
       <Text content="Scan the QR code" font="poppinsSemiBold" size="48" />

@@ -47,7 +47,7 @@ export default Blits.Component('PlayerContainer', {
     back() {
       this.isColumnFocused = false
 
-      this.parent.$focus()
+      this.$parent.$focus()
       this.$emit('togglePlayerContainer')
     },
   },

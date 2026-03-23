@@ -3,8 +3,10 @@ import InfoSection from "./Sections/InfoSection";
 import ContactSection from "./Sections/ContactSection";
 
 export default Blits.Component("ContentPanel", {
-  props: ["deviceInfo", "section"],
-
+  props: {
+    deviceInfo: '',
+    section: ''
+  },
   components: {
     InfoSection,
     ContactSection,

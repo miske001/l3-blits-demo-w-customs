@@ -24,14 +24,14 @@ export default Blits.Component('Toggle', {
         w="$width"
         h="$height"
         color="#121212"
-        :alpha.transition="$hasFocus ? 0 : 1"
+        :alpha.transition="$$hasFocus ? 0 : 1"
         :effects="[{type: 'radius', props: {radius: $radius}}, {type: 'border', props:{width: 2, color: '#888'}}]"
       />
       <Element
         w="$width"
         h="$height"
         color="#121212"
-        :alpha.transition="$hasFocus ? 1 : 0"
+        :alpha.transition="$$hasFocus ? 1 : 0"
         :effects="[{type: 'radius', props: {radius: $radius}}, {type: 'border', props:{width: 4, color: '#fff'}}]"
       />
       <Element

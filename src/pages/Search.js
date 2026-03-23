@@ -17,7 +17,7 @@ export default Blits.Component('Search', {
       <Keyboard x="100" :y.transition="$keyboardY" ref="keyboard" margin="100" perRow="6" />
       <KeyboardLabelBtn x="100" :y.transition="$keyboardLabelY" w="200" h="60" />
       <Text x="750" y="150" size="46" :content="$searchTerm || $placeholder" :alpha="$searchTerm ? 1 : 0.5" />
-      <Element :y.transition="$columnY" height="430" width="600" overflow="false">
+      <Element :y.transition="$columnY" h="430" w="600" overflow="false">
         <VerticalContainer
           x="100"
           items="$searchQueries"

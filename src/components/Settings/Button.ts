@@ -1,14 +1,16 @@
 import Blits from "@lightningjs/blits";
 
 export default Blits.Component("Button", {
-  props: ["label", "isActive"],
-
+  props: {
+    label: '',
+    isActive: false
+  },
   state() {
     return {};
   },
 
   template: `
-    <Element w="602" h="84" :effects="[ { type: 'radius', props: { radius: 50 } } ]" :color="$backgroundColor">
+    <Element w="602" h="84" rounded="50" :color="$backgroundColor">
       <Layout
         direction="horizontal"
         placement="{ x: 'end', y: 'middle' }"
@@ -23,7 +25,7 @@ export default Blits.Component("Button", {
 
   computed: {
     backgroundColor() {
-      if (this.hasFocus) return { left: "#ED51F0", right: "#9A33FF" };
+      if (this.$hasFocus) return { left: "#ED51F0", right: "#9A33FF" };
       if (this.isActive) return "#9933FF40";
       return "transparent";
     },

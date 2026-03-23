@@ -21,33 +21,18 @@ export default Blits.Component('VerticalContainer', {
       />
     </Element>
   `,
-  props: [
-    'autoScroll',
-    'items',
-    'looping',
-    'indexInH',
-    'isColFocused',
-    {
-      key: 'screenH',
-      default: 1000,
-    },
-    {
-      key: 'screenW',
-      default: 1820,
-    },
-    {
-      key: 'gap',
-      default: 100,
-    },
-    {
-      key: 'above',
-      default: null,
-    },
-    {
-      key: 'below',
-      default: null,
-    },
-  ],
+  props: {
+    autoScroll: null,
+    items: null,
+    looping: null,
+    indexInH: 0,
+    isColFocused: null,
+    screenH: 1000,
+    screenW: 1820,
+    gap: 100,
+    above: null,
+    below: null,
+  },
   state() {
     return {
       focused: 0,
@@ -62,14 +47,15 @@ export default Blits.Component('VerticalContainer', {
   },
   hooks: {
     hover() {
-      if (!this.parent.componentId.includes('HorizontalContainer')) return
-      if (this.parent.isScrolling) return
+      console.log('asdf COMPID VERT: ', this.$parent)
+      if (!this.$parent.$componentId.includes('HorizontalContainer')) return
+      if (this.$parent.isScrolling) return
 
-      this.parent.focused = this.indexInH
+      this.$parent.focused = this.indexInH
     },
   },
   watch: {
-    hasFocus(isFocused) {
+    $hasFocus(isFocused) {
       if (isFocused) this.$trigger('focused')
     },
     focused(value) {

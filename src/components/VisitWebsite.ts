@@ -5,16 +5,11 @@ export default Blits.Component("VisitWebsite", {
   components: {
     CircleButton,
   },
-  props: [
-    {
-      key: "steps",
-      default: () => [], // da nikad ne bude undefined
-    },
-    {
-      key: "offsetY",
-      default: 0,
-    },
-  ],
+ 
+  props: {
+    steps: [],
+    offsetY: 0
+  },
 
   template: `
     <Element>

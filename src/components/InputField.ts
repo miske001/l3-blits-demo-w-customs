@@ -1,11 +1,11 @@
 import Blits from "@lightningjs/blits";
 
 export default Blits.Component("InputField", {
-  props: [
-    { key: "label" },
-    { key: "placeholder" },
-    { key: "password", default: false },
-  ],
+  props: {
+    label: "",
+    placeholder: "",
+    password: false,
+  },
 
   state() {
     return {
@@ -44,7 +44,7 @@ export default Blits.Component("InputField", {
 
       const visibleText = text.slice(
         this.scrollIndex,
-        this.scrollIndex + maxChars,
+        this.scrollIndex + maxChars
       );
 
       const relativeCaret = this.caretPos - this.scrollIndex;
@@ -62,30 +62,10 @@ export default Blits.Component("InputField", {
       <Text :content="$label" size="28" font="poppinsBold" y="-10" />
     
       <!-- SIVI BORDER -->
-      <Element
-        :show="!$focused"
-        y="40"
-        w="700"
-        h="100"
-        color="#00000000"
-        :effects="[
-      { type:'radius', props:{ radius:50 }},
-      { type:'border', props:{ width:4, color:'#8F8F8F' }}
-    ]"
-      />
+      <Element :show="!$focused" y="40" w="700" h="100" color="#00000000" rounded="50" border="{w: 4, color: '#8F8F8F'}" />
     
       <!-- BELI BORDER -->
-      <Element
-        :show="$focused"
-        y="40"
-        w="700"
-        h="100"
-        color="#00000000"
-        :effects="[
-      { type:'radius', props:{ radius:50 }},
-      { type:'border', props:{ width:4, color:'#FFFFFF' }}
-    ]"
-      />
+      <Element :show="$focused" y="40" w="700" h="100" color="#00000000" rounded="50" border="{w: 4, color: '#FFFFFF'}" />
       <Element clipping="true" w="680" h="120">
         <Text x="45" y="66" :content="$displayText" :alpha="$value ? 1 : 0.5" @loaded="$onTextLoaded" />
       </Element>
@@ -172,7 +152,7 @@ export default Blits.Component("InputField", {
     },
 
     up(e) {
-      if (this.parent) this.parent.$input(e);
+      if (this.$parent) this.$parent.$input(e);
     },
   },
 });
