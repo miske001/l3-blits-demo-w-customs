@@ -10,7 +10,7 @@ export default Blits.Component("ProfileContainer", {
     ExitButton,
   },
   template: `
-    <Element w="334" h="294" x="96" y="130" color="#2B2B2BFF" :effects="[ { type: 'radius', props: { radius: 35 } } ]">
+    <Element w="334" h="294" x="96" y="130" color="#2B2B2BFF" rounded="35">
       <Layout direction="vertical" padding="{left: 16, right: 16, top: 36, bottom: 36}" gap="16">
         <ProfileInfo ref="profile" h="68" />
         <SettingsButton ref="settings" h="68" />

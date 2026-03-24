@@ -11,14 +11,7 @@ export default Blits.Component('HorLayout', {
     DynamicButton,
   },
   template: `
-    <Element
-      y="200"
-      h="100"
-      :w="$totalWidth - 7"
-      color="#2B2B2B"
-      :effects="[{type: 'radius', props: {radius: 50}}]"
-      @loaded="$btnLoaded"
-    >
+    <Element y="200" h="100" :w="$totalWidth - 7" color="#2B2B2B" rounded="50" @loaded="$btnLoaded">
       <!-- <Text>Horizontal Layout Container</Text> -->
       <Layout ref="container" gap="20">
         <DynamicButton

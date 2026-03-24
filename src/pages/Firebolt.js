@@ -22,7 +22,7 @@ import fireBoltModules from '../api/fireBoltModules'
 
 const Module = Blits.Component('Module', {
   template: `
-    <Element w="$w" h="$h" :color="$bColor" :effects="[{type: 'radius', props: {radius: 8}}]">
+    <Element w="$w" h="$h" :color="$bColor" rounded="8">
       <Text x="$w/2" y="$h/2" mount="{x:0.5, y:0.5}" :content="$name" color="$fColor" font="raleway" />
     </Element>
   `,

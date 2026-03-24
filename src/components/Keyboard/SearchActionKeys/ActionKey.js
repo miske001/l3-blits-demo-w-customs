@@ -6,7 +6,7 @@ export default Blits.Component('ActionKey', {
       w="$width"
       h="84"
       :color="$isFocused ? '#FFF' : '#1b1c22'"
-      :effects="[{type: 'radius', props: {radius: 10}}]"
+      rounded="10"
       :scale.transition="$isFocused ? 1.1 : 1"
     >
       <Element :src="$imgSrc" w="50" h="50" :color="$isFocused ? '#0D0E12' : '#FFF'" mount="0.5" :x="$width/2" :y="84/2" />

@@ -6,7 +6,7 @@ export default Blits.Component('SearchTerm', {
       w="$items.width"
       h="$items.height"
       :color="$isFocused ? '#FFF' : 'transparent'"
-      :effects="[{type: 'radius', props: {radius: $items.radius}}]"
+      rounded="$items.radius"
       x="-10"
     >
       <Element

@@ -23,7 +23,7 @@ const Item = Blits.Component('Item', {
     FocusBorder,
   },
   template: `
-    <Element :color="$$hasFocus ? '#e0f2fe' : '#fef9c3'" w="200" h="200" :effects="[{type: 'radius', props: {radius: 12}}]">
+    <Element :color="$$hasFocus ? '#e0f2fe' : '#fef9c3'" w="200" h="200" rounded="12">
       <Text
         :content="$name"
         :size="$$hasFocus ? 38 : 32"

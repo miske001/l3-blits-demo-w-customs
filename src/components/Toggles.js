@@ -25,14 +25,16 @@ export default Blits.Component('Toggle', {
         h="$height"
         color="#121212"
         :alpha.transition="$$hasFocus ? 0 : 1"
-        :effects="[{type: 'radius', props: {radius: $radius}}, {type: 'border', props:{width: 2, color: '#888'}}]"
+        rounded="$radius"
+        border="{w: 2, color: '#888'}"
       />
       <Element
         w="$width"
         h="$height"
         color="#121212"
         :alpha.transition="$$hasFocus ? 1 : 0"
-        :effects="[{type: 'radius', props: {radius: $radius}}, {type: 'border', props:{width: 4, color: '#fff'}}]"
+        rounded="$radius"
+        border="{w: 4, color: '#fff'}"
       />
       <Element
         w="$innerWidth"
@@ -41,7 +43,7 @@ export default Blits.Component('Toggle', {
         :x.transition="$toggled ? $width - $offset : $offset"
         y="$height/2"
         :color.transition="$toggled ? '#fff' : '#888'"
-        :effects="[{type: 'radius', props: {radius: $innerRadius}}]"
+        rounded="$innerRadius"
       />
     </Element>
   `,

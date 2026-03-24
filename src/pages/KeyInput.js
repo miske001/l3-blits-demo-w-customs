@@ -6,14 +6,7 @@ export default Blits.Component('KeyInput', {
       <Element w="200" h="200" :color="$focusColor" :x="$focusedX * 220" :y="$focusedY * 210" />
     
       <Element w="180" h="180" x="10" y="10" :color="$blockColor" />
-      <Element
-        w="180"
-        h="180"
-        x="230"
-        y="10"
-        :color="$blockColor"
-        :effects="[{type: 'border', props:{width: 5, color: '#888'}}]"
-      />
+      <Element w="180" h="180" x="230" y="10" :color="$blockColor" border="{w: 5, color: '#888'}" />
       <Element w="180" h="180" x="450" y="10" :color="$blockColor" />
       <Element w="180" h="180" x="670" y="10" :color="$blockColor" />
     

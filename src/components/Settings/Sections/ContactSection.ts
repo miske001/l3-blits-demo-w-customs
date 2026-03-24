@@ -9,16 +9,7 @@ export default Blits.Component("ContactSection", {
       <Layout direction="vertical" gap="20" y="80" align-items="center">
         <Text content="We welcome all your comments and opinions" font="poppinsBold" />
     
-        <Element
-          w="441"
-          h="441"
-          ref="qrContainer"
-          :src="$imgSrc"
-          :effects="[
-                { type: 'radius', props: { radius: 25 } },
-            
-            ]"
-        />
+        <Element w="441" h="441" ref="qrContainer" :src="$imgSrc" rounded="25" />
     
         <Text content="Use your mobile to scan QR code" />
         <Text content="or visit" />

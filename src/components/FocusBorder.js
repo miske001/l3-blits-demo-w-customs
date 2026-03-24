@@ -2,13 +2,7 @@ import Blits from '@lightningjs/blits'
 
 export const FocusBorder = Blits.Component('FocusBorder', {
   template: `
-    <Element
-      y="-1"
-      w="$width"
-      h="$height"
-      :effects="[{type: 'radius', props: {radius: 5}}, {type: 'border', props:{width:
-    $bWidth, color: '#BADA55'}}]"
-    />
+    <Element y="-1" w="$width" h="$height" rounded="5" border="{w: $bWidth, color: '#bada55'}" />
   `,
   props: [
     'width',
