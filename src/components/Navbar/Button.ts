@@ -34,15 +34,6 @@ export default Blits.Component('Button', {
     </Element>
   `,
 
-  hooks: {
-    focus() {
-      this.hasFocus = true
-    },
-    unfocus() {
-      this.hasFocus = false
-    }
-  },
-
   methods: {
     onTextLoaded({ w }) {
       this.textWidth = w

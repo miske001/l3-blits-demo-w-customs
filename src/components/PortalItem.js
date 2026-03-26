@@ -54,8 +54,8 @@ export default Blits.Component('PortalItem', {
     enter() {
       this.$router.to(`/${this.id}`)
     },
-    back() {
+    /* back() {
       // intercept
-    },
+    }, */
   },
 })

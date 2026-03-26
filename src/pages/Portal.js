@@ -3,11 +3,13 @@ import PortalRow from '../components/PortalRow.js'
 import SourceInfo from '../components/SourceInfo.js'
 
 import p from '../../package.json'
+import Modal from '../components/ExitModal/ExitModal.js'
 
 export default Blits.Component('Portal', {
   components: {
     PortalRow,
     SourceInfo,
+    Modal,
   },
   template: `
     <Element w="1920" h="1080" color="{top: '#44037a', bottom: '#240244'}">
@@ -55,10 +57,12 @@ export default Blits.Component('Portal', {
           </Element>
         </Element>
       </Element>
+      <Modal ref="exitModal" :show="$showExitModal" :shouldShowModal="$showExitModal" />
     </Element>
   `,
   state() {
     return {
+      showExitModal: false,
       version: p.version,
       offset: 60,
       rowFocused: 0,
@@ -295,7 +299,17 @@ export default Blits.Component('Portal', {
       ],
     }
   },
+
   hooks: {
+    init() {
+      this.$listen('onAppExit', () => {
+        this.showExitModal = !this.showExitModal
+
+        if (!this.showExitModal) {
+          this.$trigger('rowFocused')
+        }
+      })
+    },
     ready() {
       this.logoOffset = 0
     },
@@ -315,6 +329,10 @@ export default Blits.Component('Portal', {
     },
     down() {
       this.rowFocused = (this.rowFocused + 1) % this.rows.length
+    },
+    back() {
+      this.showExitModal = !this.showExitModal
+      this.$select('exitModal').$focus()
     },
   },
 })
