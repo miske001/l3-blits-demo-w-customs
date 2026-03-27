@@ -5,11 +5,11 @@ import RemoteLoginBtn from "../components/RemoteLoginBtn";
 export default Blits.Component("RemoteLogin", {
   components: { InputField, RemoteLoginBtn },
   props: {
-    active: true
+    active: true,
   },
 
   state() {
-    return { focusedIndex: 0 };
+    return { focusedIndex: 0, isTyping: false };
   },
 
   template: `
@@ -26,6 +26,8 @@ export default Blits.Component("RemoteLogin", {
 
   hooks: {
     init() {
+      this.$listen("requestKeyboard", () => this.handleKeyboardRequest());
+      // this.$listen('activateNativeInput', () => this.activateNativeInput())
       // slušamo emit 'next'
       this.$listen("next", () => this.focusNext());
 
@@ -81,17 +83,53 @@ export default Blits.Component("RemoteLogin", {
       const ref = this.focusableRefs()[this.focusedIndex];
       const field = this.$select(ref);
       if (!field) return;
+
       field.$focus();
 
-      // Ne aktiviramo tastaturu odmah
+      // 🔥 KLJUČNO: ako nije input → ugasi tastaturu
+      if (ref !== "email" && ref !== "password") {
+        this.deactivateNativeInput();
+      }
     },
 
     activateNativeInput() {
       const ref = this.focusableRefs()[this.focusedIndex];
+      if (ref !== "email" && ref !== "password") return;
+
+      if (this.isTyping) return; // 🔥 SPREČAVA DUPLO OTVARANJE
+
+      this.isTyping = true;
+
       const field = this.$select(ref);
-      if (!field || !this.nativeInput) return;
-      this.nativeInput.value = field.value || "";
-      this.nativeInput.focus();
+      this.nativeInput.value = field?.value || "";
+
+      setTimeout(() => {
+        this.nativeInput.focus();
+      }, 0);
+    },
+    deactivateNativeInput() {
+      this.isTyping = false;
+
+      if (!this.nativeInput) return;
+
+      this.nativeInput.blur();
+
+      // 🔥 OVO JE KLJUČNO ZA TV
+      this.nativeInput.style.display = "none";
+      setTimeout(() => {
+        this.nativeInput.style.display = "block";
+      }, 0);
+    },
+    handleKeyboardRequest() {
+      const ref = this.focusableRefs()[this.focusedIndex];
+
+      // ❌ ako već nije input → IGNORE
+      if (ref !== "email" && ref !== "password") return;
+
+      // ❌ ako već kuca → IGNORE
+      if (this.isTyping) return;
+
+      this.activateNativeInput();
     },
   },
 
@@ -108,20 +146,20 @@ export default Blits.Component("RemoteLogin", {
 
       if (focusedRef === "forgot") {
         this.$emit("rememberRemoteIndex", this.focusedIndex);
-        this.focusedIndex = -1;
+        this.focusedIndex = null;
         this.$emit("changeMode", "forgotPassword");
         this.$emit("switchToPhone");
       }
 
       if (focusedRef === "create") {
         this.$emit("rememberRemoteIndex", this.focusedIndex);
-        this.focusedIndex = -1;
+        this.focusedIndex = null;
         this.$emit("changeMode", "createAccount");
         this.$emit("switchToPhone");
       }
 
       if (focusedRef === "signin") {
-        this.$router.to("/");
+        this.$router.to("/home");
       }
     },
     down() {
@@ -138,7 +176,9 @@ export default Blits.Component("RemoteLogin", {
     },
 
     up() {
+      this.deactivateNativeInput();
       if (!this.active) return;
+
       // ako smo na email inputu
       if (this.focusedIndex === 0) {
         const loginPage = this.$parent;
@@ -171,8 +211,10 @@ export default Blits.Component("RemoteLogin", {
       }
     },
     back() {
+      this.deactivateNativeInput();
       this.$emit("changeMode", "signIn");
       this.$emit("switchToRemote");
+      // this.focusedIndex = 0
     },
   },
 });

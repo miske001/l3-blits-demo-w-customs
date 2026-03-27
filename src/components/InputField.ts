@@ -143,8 +143,13 @@ export default Blits.Component("InputField", {
     },
 
     enter() {
-      this.$emit("activateNativeInput");
-      this.$emit("next");
+      const ref = this.$parent.focusableRefs()[this.$parent.focusedIndex];
+
+      if (ref === "email" || ref === "password") {
+        this.$emit("requestKeyboard");
+      } else {
+        this.$emit("next");
+      }
     },
 
     down() {

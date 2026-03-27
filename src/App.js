@@ -160,7 +160,11 @@ export default Blits.Application({
     { path: '/kastom/grid', component: GridPage },
     { path: '/kastom/player', component: Player },
     { path: '/kastom/settings', component: Settings },
-    { path: '/kastom/login', component: LoginPage },
+    {
+      path: '/kastom/login',
+      component: LoginPage,
+      options: { keepAlive: true },
+    },
     // Benchmarks and stress tests
     { path: '/benchmarks/exponential', component: Exponential },
 
