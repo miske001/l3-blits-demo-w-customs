@@ -231,6 +231,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 20,
           imgSrc: '',
+          isLeaf: true,
         },
         {
           type: MomentItem,
@@ -242,6 +243,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 20,
           imgSrc: '',
+          isLeaf: true,
         },
         {
           type: MomentItem,
@@ -253,6 +255,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 20,
           imgSrc: '',
+          isLeaf: true,
         },
         {
           type: MomentItem,
@@ -263,6 +266,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 20,
           imgSrc: '',
+          isLeaf: true,
         },
         {
           type: MomentItem,
@@ -273,6 +277,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 20,
           imgSrc: '',
+          isLeaf: true,
         },
         {
           type: MomentItem,
@@ -283,6 +288,7 @@ export default Blits.Component('Player', {
           textSize: 27,
           radius: 20,
           imgSrc: '',
+          isLeaf: true,
         },
       ],
     }

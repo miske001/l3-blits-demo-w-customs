@@ -28,15 +28,12 @@ export default Blits.Component('SearchTerm', {
       />
     </Element>
   `,
-  props: [
-    'items',
-    'index',
-    'isFocused',
-    {
-      key: 'selected',
-      default: null,
-    },
-  ],
+  props: {
+    items: null,
+    index: null,
+    isFocused: false,
+    selected: null,
+  },
   computed: {
     isSelected() {
       if (this.selected === undefined || this.selected === null) {
@@ -52,7 +49,8 @@ export default Blits.Component('SearchTerm', {
   },
   hooks: {
     hover() {
-      this.$parent.$parent.$select('keyboard').activeZone = 'terms'
+      const keyboard = this.$parent?.$parent?.$select?.('keyboard')
+      if (keyboard?.activeZone) keyboard.activeZone = 'terms'
       this.$emit('focusDown', this.index)
     },
   },

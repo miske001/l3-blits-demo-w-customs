@@ -16,6 +16,7 @@ export default Blits.Component('VerticalContainer', {
         screenW="$screenW"
         index="$index"
         indexInV="$index"
+        :selected="$selected"
         :isRowFocused="$index === $focused"
         :isFocused="$isLeafLevel && ($index === $focused && $isColFocused)"
       />
@@ -24,6 +25,7 @@ export default Blits.Component('VerticalContainer', {
   props: {
     autoScroll: null,
     items: null,
+    selected: null,
     looping: null,
     indexInH: 0,
     isColFocused: null,

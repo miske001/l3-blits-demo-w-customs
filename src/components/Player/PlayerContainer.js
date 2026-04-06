@@ -18,13 +18,13 @@ export default Blits.Component('PlayerContainer', {
   template: `
     <Element :w="$width" :h="$height" color="#282828" rounded="15">
       <Element y="24" x="24">
-        <Circle size="50" color="#3D3D3D">
+        <Element w="50" h="50" rounded="99" color="#3D3D3D">
           <Element h="25" w="25" src="/assets/arrowUP.png" mount="0.5" x="25" y="25" rotation="-90" />
-        </Circle>
+        </Element>
         <Text content="$label" y="7" mount="{x: 0.5}" :x="$width/2-24" />
       </Element>
       <Element x="24" y="95" w="$width-48" h="3.6" color="#646262" rounded="10" />
-      <Element y="110" :height="$height-110" :width="$width" overflow="false">
+      <Element y="110" :h="$height-110" :w="$width" overflow="false">
         <VerticalContainer
           ref="vertCont"
           x="$vertContX"

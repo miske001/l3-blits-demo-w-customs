@@ -131,7 +131,8 @@ export default Blits.Component('Search', {
       })
     },
     focus() {
-      if (this.$select('keyboard').activeZone !== 'keys') return
+      const keyboard = this.$select('keyboard')
+      if (keyboard?.activeZone !== 'keys') return
       this.$select('keyboard').$focus()
     },
   },
